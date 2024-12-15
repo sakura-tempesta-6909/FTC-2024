@@ -88,9 +88,9 @@ public class Drive implements Component {
 
         // Calculate motor power values
         // モーターのパワー値を計算する
-        double leftFrontPower = (rotY + rotX - state.controllerState.rightStickX) / denominator;
-        double leftRearPower = (rotY - rotX - state.controllerState.rightStickX) / denominator;
-        double rightFrontPower = (rotY - rotX + state.controllerState.rightStickX) / denominator;
+        double leftFrontPower = (rotY + rotX - state.controllerState.rightStickX) / denominator *0.85;
+        double leftRearPower = (rotY - rotX - state.controllerState.rightStickX) / denominator *0.85;
+        double rightFrontPower = (rotY - rotX + state.controllerState.rightStickX) / denominator *0.85;
         double rightRearPower = (rotY + rotX + state.controllerState.rightStickX) / denominator;
 
         // Set motor power to respective motors

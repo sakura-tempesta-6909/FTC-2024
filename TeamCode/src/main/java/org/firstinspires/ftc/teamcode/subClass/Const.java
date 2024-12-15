@@ -23,7 +23,7 @@ public class Const {
         public static final RevHubOrientationOnRobot HUB_ORIENTATION =
                 new RevHubOrientationOnRobot(
                         RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                        RevHubOrientationOnRobot.UsbFacingDirection.RIGHT
+                        RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
                 );
     }
 
