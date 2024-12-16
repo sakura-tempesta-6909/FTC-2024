@@ -23,6 +23,8 @@ public class State {
         public double leftStickX;
         public double leftStickY;
         public double rightStickX;
+        public boolean buttonY;
+        public boolean buttonX;
     }
 
     // Instances of the sub-classes
@@ -40,6 +42,8 @@ public class State {
         this.controllerState.leftStickX = 0.0;
         this.controllerState.leftStickY = 0.0;
         this.controllerState.rightStickX = 0.0;
+        this.controllerState.buttonY = false;
+        this.controllerState.buttonX = false;
     }
 
     public void stateReset() {
@@ -49,5 +53,7 @@ public class State {
         this.controllerState.leftStickX = 0.0;
         this.controllerState.leftStickY = 0.0;
         this.controllerState.rightStickX = 0.0;
+        this.controllerState.buttonY = false;
+        this.controllerState.buttonX = false;
     }
 }

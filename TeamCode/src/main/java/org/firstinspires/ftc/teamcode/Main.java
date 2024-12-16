@@ -94,7 +94,8 @@ public class Main extends OpMode {
         state.controllerState.leftStickX = Util.applyDeadZone(gamepad1.left_stick_x);
         state.controllerState.leftStickY = Util.applyDeadZone(gamepad1.left_stick_y);
         state.controllerState.rightStickX = Util.applyDeadZone(gamepad1.right_stick_x);
-
+        state.controllerState.buttonX = gamepad1.x;
+        state.controllerState.buttonY = gamepad1.y;
         components.forEach(component -> {
             component.applyState(state);
         });
