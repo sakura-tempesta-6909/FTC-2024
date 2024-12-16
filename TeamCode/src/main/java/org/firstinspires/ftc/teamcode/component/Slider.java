@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.component;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.state.State;
@@ -13,12 +13,16 @@ import org.firstinspires.ftc.vision.VisionProcessor;
 
 public class Slider implements Component {
 
-    private final Servo lastArmLeft;
-    private final Servo lastArmRight;
+    private final CRServo lastArmLeft;
+    private final CRServo lastArmRight;
 
     public Slider(HardwareMap hardwareMap) {
-        lastArmLeft = hardwareMap.get(Servo.class, Const.Slider.Name.lastArmLeft);
-        lastArmRight = hardwareMap.get(Servo.class, Const.Slider.Name.lastArmRight);
+        lastArmLeft = hardwareMap.get(CRServo.class, Const.Slider.Name.lastArmLeft);
+        lastArmRight = hardwareMap.get(CRServo.class, Const.Slider.Name.lastArmRight);
+        lastArmRight.setPower(Const.Slider.Power.lastArmPowerInit);
+        lastArmLeft.setPower(Const.Slider.Power.lastArmPowerInit);
+        lastArmLeft.setDirection(Const.Slider.Direction.lastArmLeftInit);
+        lastArmRight.setDirection(Const.Slider.Direction.lastArmRightInit);
     }
 
     @Override
@@ -48,12 +52,15 @@ public class Slider implements Component {
 
     @Override
     public void applyState(State state) {
-        if (state.controllerState.buttonX){
-            lastArmRight.setDirection(Servo.Direction.FORWARD);
-            lastArmLeft.setDirection(Servo.Direction.FORWARD);
-        }else if(state.controllerState.buttonY) {
-            lastArmRight.setDirection(Servo.Direction.REVERSE);
-            lastArmLeft.setDirection(Servo.Direction.REVERSE);
+        if (state.driveState.charge){
+            lastArmRight.setPower(Const.Slider.Power.lastArmPowerCharge);
+            lastArmLeft.setPower(Const.Slider.Power.lastArmPowerCharge);
+        }else if(state.driveState.discharge) {
+            lastArmRight.setPower(Const.Slider.Power.lastArmPowerDischarge);
+            lastArmLeft.setPower(Const.Slider.Power.lastArmPowerDischarge);
+        }else{
+            lastArmRight.setPower(Const.Slider.Power.lastArmPowerInit);
+            lastArmLeft.setPower(Const.Slider.Power.lastArmPowerInit);
         }
 
     }

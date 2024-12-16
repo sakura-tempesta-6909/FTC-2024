@@ -75,8 +75,8 @@ public class Drive implements Component {
     public void applyState(State state) {
         // Convert joystick values to field-centric coordinates
         // ジョイスティックの値をフィールドセントリック座標に変換する
-        double rotX = state.controllerState.leftStickX * Math.cos(-state.driveState.botHeading) - (-state.controllerState.leftStickY) * Math.sin(-state.driveState.botHeading);
-        double rotY = state.controllerState.leftStickX * Math.sin(-state.driveState.botHeading) + (-state.controllerState.leftStickY) * Math.cos(-state.driveState.botHeading);
+        double rotX = state.driveState.xSpeed * Math.cos(-state.driveState.botHeading) - (-state.driveState.ySpeed) * Math.sin(-state.driveState.botHeading);
+        double rotY = state.driveState.xSpeed * Math.sin(-state.driveState.botHeading) + (-state.driveState.ySpeed) * Math.cos(-state.driveState.botHeading);
 
         // Apply a correction factor for strafing
         // ストレーフの補正係数を適用する
@@ -84,14 +84,14 @@ public class Drive implements Component {
 
         // Normalize motor power to ensure no value exceeds 1.0
         // モーターのパワーを正規化し、1.0を超えないようにする
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(-state.controllerState.rightStickX), 1.0);
+        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(-state.driveState.xSpeed), 1.0);
 
         // Calculate motor power values
         // モーターのパワー値を計算する
-        double leftFrontPower = (rotY + rotX - state.controllerState.rightStickX) / denominator *0.85;
-        double leftRearPower = (rotY - rotX - state.controllerState.rightStickX) / denominator *0.85;
-        double rightFrontPower = (rotY - rotX + state.controllerState.rightStickX) / denominator *0.85;
-        double rightRearPower = (rotY + rotX + state.controllerState.rightStickX) / denominator;
+        double leftFrontPower = (rotY + rotX - state.driveState.rotation) / denominator;
+        double leftRearPower = (rotY - rotX - state.driveState.rotation) / denominator;
+        double rightFrontPower = (rotY - rotX + state.driveState.rotation) / denominator;
+        double rightRearPower = (rotY + rotX + state.driveState.rotation) / denominator;
 
         // Set motor power to respective motors
         // 各モーターにパワーを設定する

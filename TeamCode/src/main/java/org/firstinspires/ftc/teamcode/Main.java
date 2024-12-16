@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.component.Component;
 import org.firstinspires.ftc.teamcode.component.Drive;
+import org.firstinspires.ftc.teamcode.component.Slider;
 import org.firstinspires.ftc.teamcode.state.State;
 import org.firstinspires.ftc.teamcode.subClass.Util;
 
@@ -54,6 +55,7 @@ public class Main extends OpMode {
     public void init() {
         state.stateInit();
         components.add(new Drive(hardwareMap));
+        components.add(new Slider(hardwareMap));
     }
 
     /*
@@ -91,11 +93,12 @@ public class Main extends OpMode {
         });
         state.currentMode = State.Mode.DRIVE;
         state.driveState.imuReset = gamepad1.start;
-        state.controllerState.leftStickX = Util.applyDeadZone(gamepad1.left_stick_x);
-        state.controllerState.leftStickY = Util.applyDeadZone(gamepad1.left_stick_y);
-        state.controllerState.rightStickX = Util.applyDeadZone(gamepad1.right_stick_x);
-        state.controllerState.buttonX = gamepad1.x;
-        state.controllerState.buttonY = gamepad1.y;
+        state.driveState.xSpeed = Util.applyDeadZone(gamepad1.left_stick_x);
+        state.driveState.ySpeed = Util.applyDeadZone(gamepad1.left_stick_y);
+        state.driveState.rotation= Util.applyDeadZone(gamepad1.right_stick_x);
+        state.driveState.charge = gamepad1.x;
+        state.driveState.discharge = gamepad1.y;
+
         components.forEach(component -> {
             component.applyState(state);
         });

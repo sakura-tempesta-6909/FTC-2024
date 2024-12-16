@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode.subClass;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorREV2mDistance;
 
@@ -29,6 +32,9 @@ public class Const {
                         RevHubOrientationOnRobot.LogoFacingDirection.UP,
                         RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD
                 );
+        public static class AutonomousDrive {
+
+        }
     }
     public static class Arm{
         public static class Name {
@@ -57,10 +63,13 @@ public class Const {
             public static final String intakeLift = "intakeLift";
         }
         public static class Direction{
-
+            public static final DcMotorSimple.Direction lastArmLeftInit = DcMotorSimple.Direction.REVERSE;
+            public static final DcMotorSimple.Direction lastArmRightInit = DcMotorSimple.Direction.FORWARD;
         }
-        public static class Position{
-
+        public static class Power{
+            public static final int lastArmPowerInit = 0;
+            public static final double lastArmPowerCharge = 0.5;
+            public static final double lastArmPowerDischarge = -0.5;
         }
     }
     public static class Camera{

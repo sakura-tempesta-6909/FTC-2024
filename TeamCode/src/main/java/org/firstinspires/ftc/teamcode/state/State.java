@@ -17,20 +17,17 @@ public class State {
         // Flag to indicate if IMU reset is needed
         // IMUリセットが必要かどうかを示すフラグ
         public boolean imuReset;
-    }
+        public double xSpeed;
+        public double ySpeed;
+        public double rotation;
 
-    public static class ControllerState {
-        public double leftStickX;
-        public double leftStickY;
-        public double rightStickX;
-        public boolean buttonY;
-        public boolean buttonX;
+        public boolean charge;
+        public boolean discharge;
     }
 
     // Instances of the sub-classes
     // サブクラスのインスタンス
     public DriveState driveState = new DriveState();
-    public ControllerState controllerState = new ControllerState();
 
     public void stateInit() {
         // General
@@ -38,22 +35,18 @@ public class State {
         // DriveState
         this.driveState.imuReset = false;
         this.driveState.botHeading = 0.0;
-        // ControllerState
-        this.controllerState.leftStickX = 0.0;
-        this.controllerState.leftStickY = 0.0;
-        this.controllerState.rightStickX = 0.0;
-        this.controllerState.buttonY = false;
-        this.controllerState.buttonX = false;
+        this.driveState.xSpeed = 0.0;
+        this.driveState.ySpeed = 0.0;
+        this.driveState.rotation = 0.0;
+        this.driveState.charge = false;
+        this.driveState.discharge = false;
     }
 
     public void stateReset() {
         // DriveState
         this.driveState.botHeading = 0.0;
-        // ControllerState
-        this.controllerState.leftStickX = 0.0;
-        this.controllerState.leftStickY = 0.0;
-        this.controllerState.rightStickX = 0.0;
-        this.controllerState.buttonY = false;
-        this.controllerState.buttonX = false;
+        this.driveState.xSpeed = 0.0;
+        this.driveState.ySpeed = 0.0;
+        this.driveState.rotation = 0.0;
     }
 }
