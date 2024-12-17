@@ -23,6 +23,9 @@ public class State {
 
         public boolean charge;
         public boolean discharge;
+
+        public boolean intakeRotation;
+
     }
 
     // Instances of the sub-classes
@@ -40,6 +43,7 @@ public class State {
         this.driveState.rotation = 0.0;
         this.driveState.charge = false;
         this.driveState.discharge = false;
+        this.driveState.intakeRotation = false;
     }
 
     public void stateReset() {

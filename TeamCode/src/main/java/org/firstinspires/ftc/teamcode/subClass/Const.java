@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode.subClass;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.SensorREV2mDistance;
 
 public class Const {
     public static class Drive {
@@ -38,10 +35,10 @@ public class Const {
     }
     public static class Arm{
         public static class Name {
-            public static final String upSliderArmLeft = "upSliderArmLeft";
-            public static final String upSliderArmRight= "upSliderArmRight";
-            public static final String upSliderRootRight = "upSliderRootRight";
-            public static final String upSliderRootLeft = "upSliderRootLeft";
+            public static final String upArmLeft = "upSliderArmLeft";
+            public static final String upArmRight= "upSliderArmRight";
+            public static final String upSliderSlideRight = "upSliderSlideRight";
+            public static final String upSliderSLideLeft = "upSliderSlideLeft";
             public static final String upArm = "upArm";
         }
         public static class Direction{
@@ -53,23 +50,43 @@ public class Const {
     }
     public static class Slider{
         public static class Name {
-            public static final String lastSliderArmLeft = "lastSliderHeadLeft";
-            public static final String lastSliderArmRight= "lastSliderHeadRight";
-            public static final String lastSliderRootRight = "lastSliderRootRight";
-            public static final String lastSliderRootLeft = "lastSliderRootLeft";
+            public static final String lastSliderSlideRight = "lastSliderSlideRight";
+            public static final String lastSliderSlideLeft = "lastSliderSlideLeft";
             public static final String lastArmLeft = "lastArmLeft";
             public static final String lastArmRight = "lastArmRight";
             public static final String intakeRotation = "intakeRotation";
-            public static final String intakeLift = "intakeLift";
+            public static final String intakeLiftLeft = "intakeLiftLeft";
+            public static final String intakeLiftRight = "intakeLiftRight";
         }
         public static class Direction{
+            public static final Servo.Direction lastSliderSlideLeft = Servo.Direction.FORWARD;
+            public static final Servo.Direction lastSliderSlideRight = Servo.Direction.FORWARD;
             public static final DcMotorSimple.Direction lastArmLeftInit = DcMotorSimple.Direction.REVERSE;
             public static final DcMotorSimple.Direction lastArmRightInit = DcMotorSimple.Direction.FORWARD;
+
+            public static final DcMotorSimple.Direction intakeRotation = DcMotorSimple.Direction.FORWARD;
+
+            public static final Servo.Direction intakeLiftLeft = Servo.Direction.FORWARD;
+            public static final Servo.Direction intakeLiftRight = Servo.Direction.FORWARD;
+
+
         }
         public static class Power{
-            public static final int lastArmPowerInit = 0;
+            public static final double lastArmPowerInit = 0;
             public static final double lastArmPowerCharge = 0.5;
             public static final double lastArmPowerDischarge = -0.5;
+            public static final double intakeRotationInit = 0;
+            public static final double intakeRotationRolling = 0.5;
+
+        }
+        public static class Position{
+            public static final double lastSliderInit = 0;
+            public static final double lastSliderCenter = 0;
+            public static final double lastSliderHead = 0;
+            public static final double intakeLiftInit = 0;
+            public static final double intakeLiftExtending = 0;
+
+
         }
     }
     public static class Camera{
