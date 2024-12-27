@@ -33,68 +33,99 @@ public class Const {
 
         }
     }
-    public static class Arm{
+    public static class upSlider {
         public static class Name {
-            public static final String upArmLeft = "upSliderArmLeft";
-            public static final String upArmRight= "upSliderArmRight";
-            public static final String upSliderSlideRight = "upSliderSlideRight";
-            public static final String upSliderSLideLeft = "upSliderSlideLeft";
-            public static final String upArm = "upArm";
+            public static final String ArmLeft = "ArmLeft";
+            public static final String ArmRight = "ArmRight";
+            public static final String SlideRight = "upSliderSlideRight";
+            public static final String SLideLeft = "upSliderSlideLeft";
+            public static final String hand = "hand";
+            public static final String handRotation = "handRotation";
+        }
+
+        public static class Mode{
+            public static final  DcMotor.RunMode slideInit = DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+            public static final  DcMotor.RunMode slideMoving = DcMotor.RunMode.RUN_TO_POSITION;
+
         }
         public static class Direction{
-
+            public static final DcMotor.Direction slideLeft = DcMotor.Direction.REVERSE;
+            public static final DcMotor.Direction slideRight = DcMotor.Direction.FORWARD;
         }
         public static class Position{
 
         }
     }
-    public static class Slider{
+    public static class bottomSlider {
         public static class Name {
-            public static final String lastSliderSlideRight = "lastSliderSlideRight";
-            public static final String lastSliderSlideLeft = "lastSliderSlideLeft";
-            public static final String lastArmLeft = "lastArmLeft";
-            public static final String lastArmRight = "lastArmRight";
-            public static final String intakeRotation = "intakeRotation";
+            public static final String SlideRight = "lastSliderSlideRight";
+            public static final String SlideLeft = "lastSliderSlideLeft";
+            public static final String ArmLeft = "lastArmLeft";
+            public static final String ArmRight = "lastArmRight";
+            public static final String intakeHorizontalRotation = "intakeHorizontalRotation";
             public static final String intakeLiftLeft = "intakeLiftLeft";
             public static final String intakeLiftRight = "intakeLiftRight";
+
+            public static final String climbLeft = "climbLeft";
+            public static final String climbRight = "climbRight";
+
+            public static final String intakeVerticalRotation = "intakeVerticalRotation";
+
         }
         public static class Direction{
-            public static final Servo.Direction lastSliderSlideLeft = Servo.Direction.FORWARD;
-            public static final Servo.Direction lastSliderSlideRight = Servo.Direction.FORWARD;
-            public static final DcMotorSimple.Direction lastArmLeftInit = DcMotorSimple.Direction.REVERSE;
-            public static final DcMotorSimple.Direction lastArmRightInit = DcMotorSimple.Direction.FORWARD;
+            public static final Servo.Direction SlideLeft = Servo.Direction.REVERSE;
+            public static final Servo.Direction SlideRight = Servo.Direction.FORWARD;
+            public static final DcMotorSimple.Direction ArmLeftInit = DcMotorSimple.Direction.REVERSE;
+            public static final DcMotorSimple.Direction ArmRightInit = DcMotorSimple.Direction.FORWARD;
 
-            public static final DcMotorSimple.Direction intakeRotation = DcMotorSimple.Direction.FORWARD;
+            public static final DcMotorSimple.Direction intakeHorizontalRotation = DcMotorSimple.Direction.FORWARD;
 
-            public static final Servo.Direction intakeLiftLeft = Servo.Direction.FORWARD;
+            public static final Servo.Direction intakeLiftLeft = Servo.Direction.REVERSE;
+            public static final Servo.Direction getIntakeLiftRight = Servo.Direction.FORWARD;
             public static final Servo.Direction intakeLiftRight = Servo.Direction.FORWARD;
 
+            public static final DcMotor.Direction climbLeft = DcMotor.Direction.FORWARD;
+            public static final DcMotor.Direction climbRight = DcMotor.Direction.REVERSE;
+
+        }
+        public static class Mode{
+            public static final  DcMotor.RunMode climbInit = DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+            public static final  DcMotor.RunMode climbMoving = DcMotor.RunMode.RUN_TO_POSITION;
 
         }
         public static class Power{
-            public static final double lastArmPowerInit = 0;
-            public static final double lastArmPowerCharge = 0.5;
-            public static final double lastArmPowerDischarge = -0.5;
-            public static final double intakeRotationInit = 0;
-            public static final double intakeRotationRolling = 0.5;
+            public static final double ArmPowerInit = 0;
+            public static final double ArmPowerCharge = 0.5;
+            public static final double ArmPowerDischarge = -0.5;
+
+            public static final double climbInit = 0;
+
 
         }
         public static class Position{
-            public static final double lastSliderInit = 0;
-            public static final double lastSliderCenter = 0;
-            public static final double lastSliderHead = 0;
-            public static final double intakeLiftInit = 0;
+            public static final double SliderInit = 0;
+            public static final double SliderHead = 0.25;
+            public static final double intakeLift = 0;
             public static final double intakeLiftExtending = 0;
+            public static final double intakeRotationInit = 0;
 
+            public static final double intakeHorizontalRotationRolling = 0.8;
 
+            public static final  int climbInit = 0;
+
+            public static final double limitedIntakeHeight = 0.6;
+            public static final double lowestIntakeHeight = 0.74;
         }
     }
     public static class Camera{
         public static class Name {
+
         }
         public static class Position{
+
         }
         public static class Size{
+
         }
     }
 

@@ -25,7 +25,22 @@ public class State {
         public boolean discharge;
 
         public boolean intakeRotation;
+        public boolean sliderIsOut;
+        public double liftLeftPosition;
+        public double liftRightPosition;
+        public boolean climb;
+        public boolean verticalRotation;
+        public double LeftPosition;
+        public double RightPosition;
 
+        public double Target;
+
+        public  boolean liftIsDown;
+
+        public boolean sliderIsUp;
+        public boolean handIsOpen;
+        public boolean handIsUP;
+        public boolean handIsRolling;
     }
 
     // Instances of the sub-classes
@@ -41,9 +56,23 @@ public class State {
         this.driveState.xSpeed = 0.0;
         this.driveState.ySpeed = 0.0;
         this.driveState.rotation = 0.0;
+        this.driveState.intakeRotation = false;
+        this.driveState.sliderIsOut = true;
+        this.driveState.liftLeftPosition = 0;
+        this.driveState.liftRightPosition = 0;
+        this.driveState.climb = false;
+        this.driveState.verticalRotation = false;
+        this.driveState.LeftPosition = 0 ;
+        this.driveState.RightPosition = 0 ;
+        this.driveState.Target = 0;
+        this.driveState.liftIsDown = false;
+        this.driveState.sliderIsUp = false;
+        this.driveState.handIsOpen = false;
+        this.driveState.handIsUP = false;
+        this.driveState.handIsRolling = false;
         this.driveState.charge = false;
         this.driveState.discharge = false;
-        this.driveState.intakeRotation = false;
+
     }
 
     public void stateReset() {

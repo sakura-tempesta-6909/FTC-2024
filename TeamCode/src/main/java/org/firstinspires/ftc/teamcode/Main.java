@@ -100,10 +100,19 @@ public class Main extends OpMode {
         state.driveState.xSpeed = Util.applyDeadZone(gamepad1.left_stick_x);
         state.driveState.ySpeed = Util.applyDeadZone(gamepad1.left_stick_y);
         state.driveState.rotation= Util.applyDeadZone(gamepad1.right_stick_x);
-        state.driveState.charge = gamepad1.x;
-        state.driveState.discharge = gamepad1.y;
-        state.driveState.intakeRotation = gamepad1.a;
+        state.driveState.charge = gamepad1.right_bumper;
+        state.driveState.discharge = gamepad1.left_bumper;
+        state.driveState.sliderIsOut = gamepad1.a;
+        state.driveState.verticalRotation = gamepad1.a;
+        state.driveState.liftIsDown = gamepad1.a;
+        state.driveState.intakeRotation = gamepad1.b;
 
+//        state.driveState.climb = gamepad1.a;
+
+        state.driveState.sliderIsUp = gamepad2.x;
+        state.driveState.handIsUP = gamepad2.y;
+        state.driveState.handIsRolling = gamepad2.a;
+        state.driveState.handIsOpen = gamepad2.b;
         components.forEach(component -> {
             component.applyState(state);
         });
