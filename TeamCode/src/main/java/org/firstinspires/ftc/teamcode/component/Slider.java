@@ -11,7 +11,6 @@ public class Slider implements Component {
 
     private final CRServo lastArmLeft;
     private final CRServo lastArmRight;
-
     public final Servo lastSliderSlideRight;
     public final Servo lastSliderSlideLeft;
     public final Servo intakeHorizontalRotation;
@@ -136,7 +135,7 @@ public class Slider implements Component {
             //b
             intakeLiftLeft.setPosition(Const.bottomSlider.Position.limitedIntakeHeight);
             intakeLiftRight.setPosition(Const.bottomSlider.Position.limitedIntakeHeight);
-        } else if(state.driveState.liftIsDown && state.driveState.charge) {
+        } else if(state.driveState.liftIsDown) {
             intakeLiftLeft.setPosition(Const.bottomSlider.Position.lowestIntakeHeight);
             intakeLiftRight.setPosition(Const.bottomSlider.Position.lowestIntakeHeight);
         }else{
