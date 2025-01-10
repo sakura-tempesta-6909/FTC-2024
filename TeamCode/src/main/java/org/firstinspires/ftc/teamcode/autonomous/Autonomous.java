@@ -28,7 +28,10 @@
  */
 package org.firstinspires.ftc.teamcode.autonomous;
 
-import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Trajectory;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -36,8 +39,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.component.Component;
 import org.firstinspires.ftc.teamcode.component.Intake;
 import org.firstinspires.ftc.teamcode.component.Outtake;
-import org.firstinspires.ftc.teamcode.lib.roadrunner.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.lib.roadrunner.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.teamcode.state.State;
 import org.firstinspires.ftc.teamcode.subClass.Util;
 
@@ -49,8 +50,8 @@ public class Autonomous extends OpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     private final ArrayList<Component> components = new ArrayList<>();
     private final State state = new State();
-    private SampleMecanumDrive drive;
-    private TrajectorySequence mainTrajectory;
+    private MecanumDrive drive;
+    private TrajectoryActionBuilder mainTrajectory;
 
     /*
      * This is executed once after the driver presses INIT.
@@ -63,12 +64,12 @@ public class Autonomous extends OpMode {
         components.add(new Intake(hardwareMap));
         components.add(new Outtake(hardwareMap));
 
-        drive = new SampleMecanumDrive(hardwareMap);
         // スタート位置の設定
         Pose2d startPose = new Pose2d(-36.0, 60.0, Math.toRadians(90.0));
-        drive.setPoseEstimate(startPose);
-        mainTrajectory = drive.trajectorySequenceBuilder(startPose)
-                .lineToLinearHeading(new Pose2d(-36.0, 36.0, Math.toRadians(90.0)))
+        drive = new MecanumDrive(hardwareMap, startPose);
+
+        mainTrajectory = drive.actionBuilder(startPose)
+                .splineTo(new Vector2d(-36.0, 36.0), Math.toRadians(90.0))
                 .addTemporalMarker(() -> state.intakeState.mode = State.IntakeMode.FINDING)
                 .build();
         drive.followTrajectorySequence(mainTrajectory);
