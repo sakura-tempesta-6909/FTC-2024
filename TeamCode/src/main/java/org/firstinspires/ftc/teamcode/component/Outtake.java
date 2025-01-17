@@ -59,7 +59,6 @@ public class Outtake implements Component {
         hangerRight.setPower(Const.outtake.Power.hangerInit);
         hangerLeft.setMode(Const.outtake.Mode.encoderMoving);
         hangerRight.setMode(Const.outtake.Mode.encoderMoving);
-
     }
 
     @Override
