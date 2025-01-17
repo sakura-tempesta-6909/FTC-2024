@@ -58,6 +58,9 @@ public class State {
         public boolean isOuttakeCollectorClose;
         public double currentSliderPosition;
         public boolean isIntakeUp;
+        public boolean isModeClimb;
+        public int hangerLeftPosition;
+        public int hangerRightPosition;
     }
 
     // Instances of the subclasses
@@ -86,7 +89,9 @@ public class State {
         this.outtakeState.additionalSliderPosition = 0;
         this.outtakeState.currentSliderPosition = 0;
         this.outtakeState.isIntakeUp = false;
-
+        this.outtakeState.isModeClimb = false;
+        this.outtakeState.hangerLeftPosition = 0;
+        this.outtakeState.hangerRightPosition = 0;
     }
 
     public void stateReset() {

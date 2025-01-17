@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.component;
 
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -49,8 +50,8 @@ public class Outtake implements Component {
 
         hangerLeft = hardwareMap.get(DcMotor.class, Const.outtake.Name.hangerLeft);
         hangerRight = hardwareMap.get(DcMotor.class, Const.outtake.Name.hangerRight);
-        hangerLeft.setDirection(DcMotor.Direction.FORWARD);
-        hangerRight.setDirection(DcMotor.Direction.REVERSE);
+        hangerLeft.setDirection(DcMotor.Direction.REVERSE);
+        hangerRight.setDirection(DcMotor.Direction.FORWARD);
         hangerLeft.setMode(Const.outtake.Mode.encoderInit);
         hangerRight.setMode(Const.outtake.Mode.encoderInit);
         hangerLeft.setTargetPosition(Const.outtake.Position.hangerInit);
@@ -84,6 +85,8 @@ public class Outtake implements Component {
     @Override
     public void readSensors(State state) {
         state.outtakeState.currentSliderPosition = outtakeSliderLeft.getCurrentPosition();
+        state.outtakeState.hangerLeftPosition = hangerLeft.getCurrentPosition();
+        state.outtakeState.hangerRightPosition = hangerRight.getCurrentPosition();
     }
 
     @Override

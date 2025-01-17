@@ -50,6 +50,7 @@ public class Main extends OpMode {
     private Boolean previousGamePad2Y = false;
     private Boolean previousGamepad1Trigger = false;
     private Boolean isFinding = false;
+    private Boolean isModeClimb = false;
 
     /*
      * This is executed once after the driver presses INIT.
@@ -110,54 +111,69 @@ public class Main extends OpMode {
         if ((Util.applyDeadZone(gamepad1.right_trigger) > 0.0 || Util.applyDeadZone(gamepad1.left_trigger) > 0.0) != previousGamepad1Trigger) {
             isFinding = !isFinding;
         }
-        //インテイクの状態
-        if (gamepad1.right_bumper) {
-            state.intakeState.mode = State.IntakeMode.CHARGE;
-        } else if (gamepad1.left_bumper) {
-            state.intakeState.mode = State.IntakeMode.DISCHARGE;
-        } else if (isFinding) {
-            state.intakeState.mode = State.IntakeMode.FINDING;
-        } else {
-            state.intakeState.mode = State.IntakeMode.STOP;
+
+        if (gamepad1.back && gamepad2.back){
+            isModeClimb = true;
         }
 
-        // 回収するサンプルの向きを変える
-        if (gamepad1.b && !previousGamePad1B) {
-            switch (state.intakeState.orientation) {
-                case HORIZONTAL:
-                    state.intakeState.orientation = State.IntakeOrientation.VERTICAL;
-                    break;
-                case VERTICAL:
-                    state.intakeState.orientation = State.IntakeOrientation.HORIZONTAL;
-                    break;
+
+            //インテイクの状態
+            if (gamepad1.right_bumper && !isModeClimb) {
+                state.intakeState.mode = State.IntakeMode.CHARGE;
+            } else if (gamepad1.left_bumper && !isModeClimb) {
+                state.intakeState.mode = State.IntakeMode.DISCHARGE;
+            } else if (isFinding && !isModeClimb) {
+                state.intakeState.mode = State.IntakeMode.FINDING;
+            } else if (!isModeClimb){
+                state.intakeState.mode = State.IntakeMode.STOP;
             }
-        }
+
+            // 回収するサンプルの向きを変える
+            if (gamepad1.b && !previousGamePad1B && !isModeClimb) {
+                switch (state.intakeState.orientation) {
+                    case HORIZONTAL:
+                        state.intakeState.orientation = State.IntakeOrientation.VERTICAL;
+                        break;
+                    case VERTICAL:
+                        state.intakeState.orientation = State.IntakeOrientation.HORIZONTAL;
+                        break;
+                }
+            }
 
 
-        // スライダーを上げる
-        if (gamepad2.dpad_down) {
-            state.outtakeState.mode = State.SliderMode.DOWN;
-            state.outtakeState.additionalSliderPosition = 0;
-        } else if (gamepad2.dpad_up) {
-            state.outtakeState.mode = State.SliderMode.TELEOP;
-        } else if (gamepad2.x) {
-            state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
-        } else if (gamepad2.a) {
-            state.outtakeState.mode = State.SliderMode.HOOK;
-        } else if (gamepad2.start) {
-            state.outtakeState.mode = State.SliderMode.INTAKE;
-        }
+            // スライダーを上げる
+            if (gamepad2.dpad_down && !isModeClimb) {
+                state.outtakeState.mode = State.SliderMode.DOWN;
+                state.outtakeState.additionalSliderPosition = 0;
+            } else if (gamepad2.dpad_up && !isModeClimb) {
+                state.outtakeState.mode = State.SliderMode.TELEOP;
+            } else if (gamepad2.x && !isModeClimb) {
+                state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
+            } else if (gamepad2.a && !isModeClimb) {
+                state.outtakeState.mode = State.SliderMode.HOOK;
+            } else if (gamepad2.start && !isModeClimb) {
+                state.outtakeState.mode = State.SliderMode.INTAKE;
+            }
 
-        if (gamepad2.dpad_left) {
-            state.outtakeState.additionalSliderPosition -= 10;
-        } else if (gamepad2.dpad_right) {
-            state.outtakeState.additionalSliderPosition += 10;
-        }
+            if (gamepad2.dpad_left && !isModeClimb) {
+                state.outtakeState.additionalSliderPosition -= 10;
+            } else if (gamepad2.dpad_right && !isModeClimb) {
+                state.outtakeState.additionalSliderPosition += 10;
+            }
 
-        //outtakeChargeのトグル
-        if (gamepad2.y && !previousGamePad2Y) {
-            state.outtakeState.isOuttakeCollectorClose = !state.outtakeState.isOuttakeCollectorClose;
-        }
+            //outtakeChargeのトグル
+            if (gamepad2.y && !previousGamePad2Y && !isModeClimb) {
+                state.outtakeState.isOuttakeCollectorClose = !state.outtakeState.isOuttakeCollectorClose;
+            }
+
+            if (gamepad2.a && isModeClimb){
+                state.outtakeState.mode = State.SliderMode.CLIMB_PREPARE;
+            }else if(gamepad2.b && isModeClimb){
+                state.outtakeState.mode = State.SliderMode.CLIMB;
+            } else if (gamepad2.x && isModeClimb) {
+                state.outtakeState.mode = State.SliderMode.CLIMB_HOOK;
+            }
+
 
         state.driveState.imuReset = gamepad1.start;
 
@@ -168,6 +184,7 @@ public class Main extends OpMode {
         //ゲームパッドの状態の保存
         previousGamePad1B = gamepad1.b;
         previousGamePad2Y = gamepad2.y;
+        state.outtakeState.isModeClimb = isModeClimb;
         previousGamepad1Trigger = Util.applyDeadZone(gamepad1.right_trigger) > 0.0 || Util.applyDeadZone(gamepad1.left_trigger) > 0.0;
 
         //ログの送信

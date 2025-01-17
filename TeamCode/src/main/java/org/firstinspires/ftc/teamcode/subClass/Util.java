@@ -13,6 +13,9 @@ public class Util {
         telemetry.addData("OuttakeAdditionalSliderPosition", state.outtakeState.additionalSliderPosition);
         telemetry.addData("CurrentSliderPosition", state.outtakeState.currentSliderPosition);
         telemetry.addData("OuttakeCollectorClose", state.outtakeState.isOuttakeCollectorClose);
+        telemetry.addData("isModeClimb",state.outtakeState.isModeClimb);
+        telemetry.addData("hangerLeftPosition",state.outtakeState.hangerLeftPosition);
+        telemetry.addData("hangerRightPosition",state.outtakeState.hangerRightPosition);
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
         dashboardTelemetry.addData("CurrentSliderPosition", state.outtakeState.currentSliderPosition);

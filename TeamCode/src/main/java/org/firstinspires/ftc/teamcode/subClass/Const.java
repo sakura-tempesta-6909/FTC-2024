@@ -47,8 +47,8 @@ public class Const {
             public static final String sliderLeft = "outtakeSliderLeft";
             public static final String Collector = "outtakeCollector";
             public static final String Rotation = "outtakeCollectorRotation";
-            public static final String hangerLeft = "outtakeHangerLeft";
-            public static final String hangerRight = "outtakeHangerRight";
+            public static final String hangerLeft = "hangerLeft";
+            public static final String hangerRight = "hangerRight";
         }
 
         public static class Mode {
@@ -81,7 +81,7 @@ public class Const {
             public static final int sliderUp = 760;
             public static final int sliderAutoHook = 1450;
             public static final int hangerInit = 0;
-            public static final int hangerHook = 1000;
+            public static final int hangerHook = 150;
             public static final int sliderClimb = 1500;
         }
 
