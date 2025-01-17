@@ -47,6 +47,9 @@ public class State {
         HOOK,
         HOOK_PREPARE,
         INTAKE,
+        CLIMB,
+        CLIMB_PREPARE,
+        CLIMB_HOOK,
     }
 
     public static class OuttakeState {

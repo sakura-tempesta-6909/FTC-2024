@@ -47,11 +47,13 @@ public class Const {
             public static final String sliderLeft = "outtakeSliderLeft";
             public static final String Collector = "outtakeCollector";
             public static final String Rotation = "outtakeCollectorRotation";
+            public static final String hangerLeft = "outtakeHangerLeft";
+            public static final String hangerRight = "outtakeHangerRight";
         }
 
         public static class Mode {
-            public static final DcMotor.RunMode sliderInit = DcMotor.RunMode.STOP_AND_RESET_ENCODER;
-            public static final DcMotor.RunMode sliderMoving = DcMotor.RunMode.RUN_TO_POSITION;
+            public static final DcMotor.RunMode encoderInit = DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+            public static final DcMotor.RunMode encoderMoving = DcMotor.RunMode.RUN_TO_POSITION;
 
         }
 
@@ -78,11 +80,16 @@ public class Const {
             public static final int sliderInit = 0;
             public static final int sliderUp = 760;
             public static final int sliderAutoHook = 1450;
+            public static final int hangerInit = 0;
+            public static final int hangerHook = 1000;
+            public static final int sliderClimb = 1500;
         }
 
         public static class Power {
             public static final double sliderInit = 0;
             public static final double sliderMoving = 0.8;
+            public static final double hangerInit = 0;
+            public static final double hangerMoving = 0.8;
         }
     }
 
