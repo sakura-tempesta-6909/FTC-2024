@@ -129,12 +129,14 @@ public class Outtake implements Component {
                 outtakeSliderRight.setTargetPosition(Const.outtake.Position.sliderInit);
                 outtakeSliderLeft.setPower(Const.outtake.Power.sliderMoving);
                 outtakeSliderRight.setPower(Const.outtake.Power.sliderMoving);
-                outtakeLiftLeft.setPosition(Const.outtake.Position.liftIntake);
-                outtakeLiftRight.setPosition(Const.outtake.Position.liftIntake);
                 if (state.outtakeState.isIntakeUp) {
                     outtakeRotation.setPosition(Const.outtake.Position.rotationIntake);
+                    outtakeLiftLeft.setPosition(Const.outtake.Position.liftIntake - 0.1);
+                    outtakeLiftRight.setPosition(Const.outtake.Position.liftIntake - 0.1);
                 } else {
                     outtakeRotation.setPosition(Const.outtake.Position.rotationUp);
+                    outtakeLiftLeft.setPosition(Const.outtake.Position.liftIntake);
+                    outtakeLiftRight.setPosition(Const.outtake.Position.liftIntake);
                 }
                 break;
         }
