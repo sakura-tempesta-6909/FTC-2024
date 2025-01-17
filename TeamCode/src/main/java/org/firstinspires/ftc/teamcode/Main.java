@@ -107,7 +107,7 @@ public class Main extends OpMode {
         state.driveState.ySpeed = Util.applyDeadZone(gamepad1.left_stick_y);
         state.driveState.rotation = Util.applyDeadZone(gamepad1.right_stick_x);
 
-        if((Util.applyDeadZone(gamepad1.right_trigger) > 0.0 || Util.applyDeadZone(gamepad1.left_trigger) > 0.0) != previousGamepad1Trigger){
+        if ((Util.applyDeadZone(gamepad1.right_trigger) > 0.0 || Util.applyDeadZone(gamepad1.left_trigger) > 0.0) != previousGamepad1Trigger) {
             isFinding = !isFinding;
         }
         //インテイクの状態
@@ -133,7 +133,6 @@ public class Main extends OpMode {
             }
         }
 
-        state.outtakeState.isOuttakeCollectorClose = gamepad2.b;
 
         // スライダーを上げる
         if (gamepad2.dpad_down) {
@@ -141,18 +140,26 @@ public class Main extends OpMode {
             state.outtakeState.additionalSliderPosition = 0;
         } else if (gamepad2.dpad_up) {
             state.outtakeState.mode = State.SliderMode.TELEOP;
+        } else if (gamepad2.x) {
+            state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
+        } else if (gamepad2.a) {
+            state.outtakeState.mode = State.SliderMode.HOOK;
+        } else if (gamepad2.start) {
+            state.outtakeState.mode = State.SliderMode.INTAKE;
         }
 
-        if (gamepad2.dpad_left){
+        if (gamepad2.dpad_left) {
             state.outtakeState.additionalSliderPosition -= 10;
-        }else if(gamepad2.dpad_right){
+        } else if (gamepad2.dpad_right) {
             state.outtakeState.additionalSliderPosition += 10;
         }
 
         //outtakeChargeのトグル
         if (gamepad2.y && !previousGamePad2Y) {
-            state.outtakeState.outtakeCharge = !state.outtakeState.outtakeCharge;
+            state.outtakeState.isOuttakeCollectorClose = !state.outtakeState.isOuttakeCollectorClose;
         }
+
+        state.driveState.imuReset = gamepad1.start;
 
         components.forEach(component -> {
             component.applyState(state);

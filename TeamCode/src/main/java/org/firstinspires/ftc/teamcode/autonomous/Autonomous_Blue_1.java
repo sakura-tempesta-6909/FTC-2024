@@ -68,13 +68,13 @@ public class Autonomous_Blue_1 extends OpMode {
         mainTrajectory = drive.trajectorySequenceBuilder(startPose)
                 .addTemporalMarker(() -> {
                     state.outtakeState.isOuttakeCollectorClose = true;
-                    state.outtakeState.mode = State.SliderMode.AUTO_HOOK_PREPARE;
+                    state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
                 })
                 // 前に進む
                 .lineToLinearHeading(new Pose2d(0.0, 31.0, Math.toRadians(90)))
                 // スライダーを伸ばして、下から設置する
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.AUTO_HOOK;
+                    state.outtakeState.mode = State.SliderMode.HOOK;
                 })
                 // 1秒待つ (スライダーが伸びきるまで)
                 .waitSeconds(1.0)
@@ -86,7 +86,7 @@ public class Autonomous_Blue_1 extends OpMode {
                 .waitSeconds(0.5)
                 // スライダーを元に戻す
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.AUTO_HOOK_PREPARE;
+                    state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
                 })
                 // 元に戻すまで待つ
                 .waitSeconds(0.5)
@@ -102,14 +102,14 @@ public class Autonomous_Blue_1 extends OpMode {
                     state.outtakeState.mode = State.SliderMode.INTAKE;
                 })
                 // 標本の前に行く
-                .lineToLinearHeading(new Pose2d(-30.0, 50.0, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-45.0, 55.0, Math.toRadians(-90)))
                 // 一回目
                 // 標本をつかむ準備をする
                 .waitSeconds(0.3)
                 // 速度を制限する
                 .setAccelConstraint(new ProfileAccelerationConstraint(20.0))
                 // 標本に近づく
-                .lineToLinearHeading(new Pose2d(-30.0, 57.0, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-45.0, 57.0, Math.toRadians(-90)))
                 // 標本をつかむ
                 .addTemporalMarker(() -> {
                     state.outtakeState.isOuttakeCollectorClose = true;
@@ -123,7 +123,7 @@ public class Autonomous_Blue_1 extends OpMode {
                 // 上がるまで待つ
                 .waitSeconds(0.5)
                 // 後ろに下がる
-                .lineToLinearHeading(new Pose2d(-30.0, 55.0, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-45.0, 55.0, Math.toRadians(-90)))
                 // 速度制限解除
                 .resetAccelConstraint()
                 // 引っかける位置に移動する
@@ -131,11 +131,11 @@ public class Autonomous_Blue_1 extends OpMode {
                 // 少し上げるのを解除
                 .addTemporalMarker(() -> {
                     state.outtakeState.isIntakeUp = false;
-                    state.outtakeState.mode = State.SliderMode.AUTO_HOOK_PREPARE;
+                    state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
                 })
                 // スライダーを伸ばし、フックに下から標本を引っかける
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.AUTO_HOOK;
+                    state.outtakeState.mode = State.SliderMode.HOOK;
                 })
                 // スライダーが伸びきるまで待つ
                 .waitSeconds(1.0)
@@ -147,7 +147,7 @@ public class Autonomous_Blue_1 extends OpMode {
                 .waitSeconds(0.5)
                 // スライダーを縮める
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.AUTO_HOOK_PREPARE;
+                    state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
                     // スライダーを伸ばし、フックに標本を引っかける
                 })
                 // 2回目
@@ -179,11 +179,11 @@ public class Autonomous_Blue_1 extends OpMode {
                 // 少し上げるのを解除
                 .addTemporalMarker(() -> {
                     state.outtakeState.isIntakeUp = false;
-                    state.outtakeState.mode = State.SliderMode.AUTO_HOOK_PREPARE;
+                    state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
                 })
                 // スライダーを伸ばし、フックに下から標本を引っかける
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.AUTO_HOOK;
+                    state.outtakeState.mode = State.SliderMode.HOOK;
                 })
                 // スライダーが伸びきるまで待つ
                 .waitSeconds(1.0)
@@ -195,7 +195,7 @@ public class Autonomous_Blue_1 extends OpMode {
                 .waitSeconds(0.5)
                 // スライダーを縮める
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.AUTO_HOOK_PREPARE;
+                    state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
                 })
                 .build()
         ;

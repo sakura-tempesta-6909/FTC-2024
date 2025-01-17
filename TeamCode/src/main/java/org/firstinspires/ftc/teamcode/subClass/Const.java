@@ -73,7 +73,7 @@ public class Const {
             public static final double rotationUp = 0.6;
             public static final double rotationIntake = 0.2;
             public static final double rotationSet = 0.18;
-            public static final double rotationAutoHook = 0.20;
+            public static final double rotationAutoHook = 0.05;
             public static final double rotationAutoHookPrepare = 0.20;
             public static final int sliderInit = 0;
             public static final int sliderUp = 760;

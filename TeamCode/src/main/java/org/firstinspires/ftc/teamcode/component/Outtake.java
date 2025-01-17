@@ -103,7 +103,7 @@ public class Outtake implements Component {
                 outtakeLiftRight.setPosition(Const.outtake.Position.liftSet);
                 outtakeRotation.setPosition(Const.outtake.Position.rotationSet);
                 break;
-            case AUTO_HOOK:
+            case HOOK:
                 // スライダーが上がった状態
                 outtakeSliderLeft.setTargetPosition(Const.outtake.Position.sliderAutoHook + state.outtakeState.additionalSliderPosition);
                 outtakeSliderRight.setTargetPosition(Const.outtake.Position.sliderAutoHook + state.outtakeState.additionalSliderPosition);
@@ -113,7 +113,7 @@ public class Outtake implements Component {
                 outtakeLiftRight.setPosition(Const.outtake.Position.liftAutoHook);
                 outtakeRotation.setPosition(Const.outtake.Position.rotationAutoHook);
                 break;
-            case AUTO_HOOK_PREPARE:
+            case HOOK_PREPARE:
                 // スライダーが下がった状態
                 outtakeSliderLeft.setTargetPosition(Const.outtake.Position.sliderInit);
                 outtakeSliderRight.setTargetPosition(Const.outtake.Position.sliderInit);

@@ -44,13 +44,12 @@ public class State {
     public enum SliderMode {
         DOWN,
         TELEOP,
-        AUTO_HOOK,
-        AUTO_HOOK_PREPARE,
+        HOOK,
+        HOOK_PREPARE,
         INTAKE,
     }
 
     public static class OuttakeState {
-        public boolean outtakeCharge;
         public SliderMode mode;
         public int additionalSliderPosition;
         public boolean isOuttakeCollectorClose;
@@ -80,7 +79,6 @@ public class State {
         this.intakeState.orientation = IntakeOrientation.VERTICAL;
 
         // OuttakeState
-        this.outtakeState.outtakeCharge = false;
         this.outtakeState.mode = SliderMode.DOWN;
         this.outtakeState.additionalSliderPosition = 0;
         this.outtakeState.currentSliderPosition = 0;

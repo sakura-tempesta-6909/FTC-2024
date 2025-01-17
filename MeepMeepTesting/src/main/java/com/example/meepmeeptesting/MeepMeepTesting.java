@@ -15,67 +15,118 @@ public class MeepMeepTesting {
         RoadRunnerBotEntity myBot = new DefaultBotBuilder(meepMeep)
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(55, 60, Math.toRadians(180), Math.toRadians(180), 12)
-                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, 60.0, Math.toRadians(90)))
+                .followTrajectorySequence(drive -> drive.trajectorySequenceBuilder(new Pose2d(0, -60.0, Math.toRadians(-90)))
                         .waitSeconds(1.0)
                         .addTemporalMarker(() -> {
                         })
                         // 前に進む
-                        .lineToLinearHeading(new Pose2d(0.0, 30.0, Math.toRadians(90)))
-                        .addTemporalMarker(() -> {
-                            // スライダーを伸ばし、フックに標本を引っかける
-                        })
-                        .waitSeconds(0.5)
-                        // ちょっと下がる
-                        .setAccelConstraint(new ProfileAccelerationConstraint(20))
-                        .lineToLinearHeading(new Pose2d(0.0, 40.0, Math.toRadians(90)))
+                        .lineToLinearHeading(new Pose2d(0.0, -31.0, Math.toRadians(-90)))
+                        // スライダーを伸ばして、下から設置する
                         .addTemporalMarker(() -> {
                         })
-                        .waitSeconds(0.5)
-                        .lineToLinearHeading(new Pose2d(0.0, 48.0, Math.toRadians(90)))
-                        .addTemporalMarker(() -> {
-                        })
-                        .waitSeconds(0.2)
-                        .resetAccelConstraint()
-                        .addTemporalMarker(() -> {
-                        })
-//                // 横に移動する
-                        .lineToLinearHeading(new Pose2d(-35.0, 48.0, Math.toRadians(90)))
-//                // 前に移動する
-                        .lineToLinearHeading(new Pose2d(-35.0, 10.0, Math.toRadians(-90)))
-                        // 横に行く
-                        .lineToLinearHeading(new Pose2d(-50.0, 10.0, Math.toRadians(-90)))
-//                        // 後ろに移動する
-                        .lineToLinearHeading(new Pose2d(-50.0, 60.0, Math.toRadians(-90)))
-                        // 横に移動しながら、前に進む
-//                        .lineToConstantHeading(new Vector2d(-55.0, 60.0))
-                        // 元の位置に戻る
-                        .lineToLinearHeading(new Pose2d(-50.0, 10.0, Math.toRadians(-90)))
-                        .lineToLinearHeading(new Pose2d(-60.0, 10.0, Math.toRadians(-90)))
-                        // 横に移動しながら、後ろに進む
-                        .lineToConstantHeading(new Vector2d(-60.0, 60.0))
-                        // 横に移動する
-//                        .lineToLinearHeading(new Pose2d(-60.0, 60.0, Math.toRadians(-90)))
-                        // 前に移動する
-                        .lineToLinearHeading(new Pose2d(-40.0, 55.0, Math.toRadians(-90)))
-                        // 標本をつかむ準備をする
+                        // 1秒待つ (スライダーが伸びきるまで)
                         .waitSeconds(1.0)
+                        // 標本を離す
+                        .addTemporalMarker(() -> {
+                        })
+                        // 0.5秒待つ
+                        .waitSeconds(0.5)
+                        // スライダーを元に戻す
+                        .addTemporalMarker(() -> {
+                        })
+                        // 元に戻すまで待つ
+                        .waitSeconds(0.5)
+                        // 横に移動する
+                        .lineToLinearHeading(new Pose2d(35.0, -45.0, Math.toRadians(-90)))
+                        // 前に移動する
+                        .lineToLinearHeading(new Pose2d(35.0, -10.0, Math.toRadians(90)))
+                        // 横に行く
+                        .lineToLinearHeading(new Pose2d(50.0, -10.0, Math.toRadians(90)))
+                        // 後ろに移動する (サンプルをヒューマンエリアに)
+                        .lineToLinearHeading(new Pose2d(50.0, -55.0, Math.toRadians(90)))
+                        // 標本の前に行く
+                        .addTemporalMarker(() -> {
+                        })
+                        // 標本の前に行く
+                        .lineToLinearHeading(new Pose2d(45.0, -50.0, Math.toRadians(90)))
+                        // 標本をつかむ準備をする
+                        .waitSeconds(0.3)
+                        // 速度を制限する
+                        .setAccelConstraint(new ProfileAccelerationConstraint(20.0))
                         // 標本に近づく
-                        .lineToLinearHeading(new Pose2d(-40.0, 60.0, Math.toRadians(-90)))
-//                // 標本をつかむ
-//                .addTemporalMarker(() -> {
-//                    // 標本をつかむ
-//                })
-//                .waitSeconds(2.0)
-////                        // 後ろに下がる
-////                        .lineToLinearHeading(new Pose2d(-40.0, 60.0, Math.toRadians(-90)))
-////                        // 引っかける一に移動する
-////                        .lineToLinearHeading(new Pose2d(0.0, 35.0, Math.toRadians(90)))
-//                .lineToSplineHeading(new Pose2d(10.0, 35.0, Math.toRadians(90)))
-//                .addTemporalMarker(() -> {
-//                    // スライダーを伸ばし、フックに標本を引っかける
-//                })
-//                .waitSeconds(2.0)
-//                .lineToLinearHeading(new Pose2d(-40.0, 60.0, Math.toRadians(90)))
+                        .lineToLinearHeading(new Pose2d(45.0, -57.0, Math.toRadians(90)))
+                        // 標本をつかむ
+                        .addTemporalMarker(() -> {
+                        })
+                        // つかみおわるまで待つ
+                        .waitSeconds(1.0)
+                        // アウトテイクを少し上に上げる
+                        .addTemporalMarker(() -> {
+                        })
+                        // 上がるまで待つ
+                        .waitSeconds(0.5)
+                        // 後ろに下がる
+                        .lineToLinearHeading(new Pose2d(45.0, -55.0, Math.toRadians(90)))
+                        // 速度制限解除
+                        .resetAccelConstraint()
+                        // 引っかける位置に移動する
+                        .lineToLinearHeading(new Pose2d(-3.0, -30.0, Math.toRadians(-90)))
+                        // 少し上げるのを解除
+                        .addTemporalMarker(() -> {
+                        })
+                        // スライダーを伸ばし、フックに下から標本を引っかける
+                        .addTemporalMarker(() -> {
+                        })
+                        // スライダーが伸びきるまで待つ
+                        .waitSeconds(1.0)
+                        // 標本を離す
+                        .addTemporalMarker(() -> {
+                        })
+                        // 離し終わるのを待つ
+                        .waitSeconds(0.5)
+                        // スライダーを縮める
+                        .addTemporalMarker(() -> {
+                        })
+                        // 2回目
+                        .lineToLinearHeading(new Pose2d(30.0, -50.0, Math.toRadians(90)))
+//                        // 標本をつかむ準備をする
+//                        .waitSeconds(0.3)
+//                        // 速度を制限する
+//                        .setAccelConstraint(new ProfileAccelerationConstraint(20.0))
+//                        // 標本に近づく
+//                        .lineToLinearHeading(new Pose2d(30.0, -57.0, Math.toRadians(90)))
+//                        // 標本をつかむ
+//                        .addTemporalMarker(() -> {
+//                        })
+//                        // つかみおわるまで待つ
+//                        .waitSeconds(1.0)
+//                        // アウトテイクを少し上に上げる
+//                        .addTemporalMarker(() -> {
+//                        })
+//                        // 上がるまで待つ
+//                        .waitSeconds(0.5)
+//                        // 後ろに下がる
+//                        .lineToLinearHeading(new Pose2d(30.0, -55.0, Math.toRadians(90)))
+//                        // 速度制限解除
+//                        .resetAccelConstraint()
+//                        // 引っかける位置に移動する
+//                        .lineToLinearHeading(new Pose2d(-8.0, -30.0, Math.toRadians(-90)))
+//                        // 少し上げるのを解除
+//                        .addTemporalMarker(() -> {
+//                        })
+//                        // スライダーを伸ばし、フックに下から標本を引っかける
+//                        .addTemporalMarker(() -> {
+//                        })
+//                        // スライダーが伸びきるまで待つ
+//                        .waitSeconds(1.0)
+//                        // 標本を離す
+//                        .addTemporalMarker(() -> {
+//                        })
+//                        // 離し終わるのを待つ
+//                        .waitSeconds(0.5)
+//                        // スライダーを縮める
+//                        .addTemporalMarker(() -> {
+//                        })
                         .build());
 
 
