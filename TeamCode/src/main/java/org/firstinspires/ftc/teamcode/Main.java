@@ -154,6 +154,8 @@ public class Main extends OpMode {
             state.outtakeState.additionalSliderPosition += 10;
         }
 
+        state.outtakeState.isIntakeUp = gamepad2.right_bumper;
+
         //outtakeChargeのトグル
         if (gamepad2.y && !previousGamePad2Y) {
             state.outtakeState.isOuttakeCollectorClose = !state.outtakeState.isOuttakeCollectorClose;
