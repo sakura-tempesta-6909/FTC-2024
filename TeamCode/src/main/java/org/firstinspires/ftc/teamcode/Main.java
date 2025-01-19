@@ -52,6 +52,7 @@ public class Main extends OpMode {
     private Boolean previousGamePad2Y = false;
     private Boolean previousGamepad1Trigger = false;
     private Boolean isFinding = false;
+    private Boolean previousModeChange = false;
     private Boolean previousDpadDown = false;
     private double previousTime = 0.0;
 
@@ -105,8 +106,14 @@ public class Main extends OpMode {
         state.currentRuntime = getRuntime();
 
         //モードの設定
-        state.currentMode = State.Mode.DRIVE;
-
+        if ((gamepad1.back && gamepad2.back) != previousModeChange && (gamepad1.back && gamepad2.back)) {
+            if (state.currentMode == State.Mode.DRIVE) {
+                state.currentMode = State.Mode.CLIMB;
+                state.outtakeState.mode = State.SliderMode.CLIMB_PREPARE;
+            } else {
+                state.currentMode = State.Mode.DRIVE;
+            }
+        }
         //ドライブの操作
         state.driveState.imuReset = gamepad1.start;
         state.driveState.xSpeed = Util.applyDeadZone(gamepad1.left_stick_x);

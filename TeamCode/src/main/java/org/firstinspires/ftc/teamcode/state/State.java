@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.state;
 
 public class State {
     public enum Mode {
-        STOP, //停止中
         DRIVE, //ドライブモード
+        CLIMB, //クライムモード
     }
 
     // Robot operation mode
@@ -49,6 +49,7 @@ public class State {
         HOOK,
         HOOK_PREPARE,
         INTAKE,
+        AUTO_END,
         CLIMB,
         CLIMB_PREPARE,
         CLIMB_HOOK,
@@ -60,9 +61,9 @@ public class State {
         public boolean isOuttakeCollectorClose;
         public double currentSliderPosition;
         public boolean isIntakeUp;
-        public boolean isModeClimb;
         public int hangerLeftPosition;
         public int hangerRightPosition;
+        public int additionalHangerPosition;
     }
 
     // Instances of the subclasses
@@ -73,7 +74,7 @@ public class State {
 
     public void stateInit() {
         // General
-        this.currentMode = Mode.STOP;
+        this.currentMode = Mode.DRIVE;
         // DriveState
         this.driveState.imuReset = false;
         this.driveState.botHeading = 0.0;
@@ -91,13 +92,12 @@ public class State {
         this.outtakeState.additionalSliderPosition = 0;
         this.outtakeState.currentSliderPosition = 0;
         this.outtakeState.isIntakeUp = false;
-        this.outtakeState.isModeClimb = false;
         this.outtakeState.hangerLeftPosition = 0;
         this.outtakeState.hangerRightPosition = 0;
+        this.outtakeState.additionalHangerPosition = 0;
     }
 
     public void stateReset() {
-        this.currentRuntime = 0.0;
         // DriveState
         this.driveState.botHeading = 0.0;
         this.driveState.xSpeed = 0.0;

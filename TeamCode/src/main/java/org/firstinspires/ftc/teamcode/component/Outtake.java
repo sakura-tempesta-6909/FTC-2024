@@ -93,7 +93,7 @@ public class Outtake implements Component {
     public void applyState(State state) {
         // Outtakeのスライダーの状態
         switch (state.outtakeState.mode) {
-            case DOWN:
+            case INIT:
                 // スライダーが下がった状態
                 outtakeSliderLeft.setTargetPosition(Const.outtake.Position.sliderInit);
                 outtakeSliderRight.setTargetPosition(Const.outtake.Position.sliderInit);
@@ -113,6 +113,20 @@ public class Outtake implements Component {
                     outtakeLiftRight.setPosition(Const.outtake.Position.liftInit);
                     outtakeRotation.setPosition(Const.outtake.Position.rotationInit);
                 }
+                break;
+            case DOWN:
+                // スライダーが下がった状態
+                outtakeSliderLeft.setTargetPosition(Const.outtake.Position.sliderInit);
+                outtakeSliderRight.setTargetPosition(Const.outtake.Position.sliderInit);
+                outtakeSliderLeft.setPower(Const.outtake.Power.sliderMoving);
+                outtakeSliderRight.setPower(Const.outtake.Power.sliderMoving);
+                hangerLeft.setTargetPosition(Const.outtake.Position.hangerInit);
+                hangerRight.setTargetPosition(Const.outtake.Position.hangerInit);
+                hangerLeft.setPower(Const.outtake.Power.hangerInit);
+                hangerRight.setPower(Const.outtake.Power.hangerInit);
+                outtakeLiftLeft.setPosition(Const.outtake.Position.liftSet);
+                outtakeLiftRight.setPosition(Const.outtake.Position.liftSet);
+                outtakeRotation.setPosition(Const.outtake.Position.rotationSet);
                 break;
             case TELEOP:
                 // スライダーが上がった状態
