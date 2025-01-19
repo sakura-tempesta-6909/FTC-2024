@@ -99,5 +99,7 @@ public class Drive implements Component {
         rightFront.setPower(rightFrontPower);
         leftRear.setPower(leftRearPower);
         rightRear.setPower(rightRearPower);
+
+        if (state.driveState.imuReset) imu.resetYaw();
     }
 }
