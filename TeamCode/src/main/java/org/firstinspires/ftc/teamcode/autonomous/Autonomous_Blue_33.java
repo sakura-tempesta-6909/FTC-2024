@@ -33,6 +33,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.ProfileAccelerationCon
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.teamcode.component.Component;
 import org.firstinspires.ftc.teamcode.component.Intake;
 import org.firstinspires.ftc.teamcode.component.Outtake;
@@ -43,8 +44,8 @@ import org.firstinspires.ftc.teamcode.subClass.Util;
 
 import java.util.ArrayList;
 
-@Autonomous(name = "Blue_1", group = "Autonomous")
-public class Autonomous_Blue_1 extends OpMode {
+@Autonomous(name = "Blue_33", group = "Autonomous")
+public class Autonomous_Blue_33 extends OpMode {
     private final ElapsedTime runtime = new ElapsedTime();
     private final ArrayList<Component> components = new ArrayList<>();
     private final State state = new State();
@@ -123,16 +124,16 @@ public class Autonomous_Blue_1 extends OpMode {
                 // 上がるまで待つ
                 .waitSeconds(0.5)
                 // 後ろに下がる
-                .lineToLinearHeading(new Pose2d(-45.0, 55.0, Math.toRadians(-90)))
+//                .lineToLinearHeading(new Pose2d(-45.0, 55.0, Math.toRadians(-90)))
                 // 速度制限解除
                 .resetAccelConstraint()
-                // 引っかける位置に移動する
-                .lineToLinearHeading(new Pose2d(5.0, 30.0, Math.toRadians(90)))
                 // 少し上げるのを解除
                 .addTemporalMarker(() -> {
                     state.outtakeState.isIntakeUp = false;
                     state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
                 })
+                // 引っかける位置に移動する
+                .lineToLinearHeading(new Pose2d(5.0, 30.0, Math.toRadians(90)))
                 // スライダーを伸ばし、フックに下から標本を引っかける
                 .addTemporalMarker(() -> {
                     state.outtakeState.mode = State.SliderMode.HOOK;
@@ -148,10 +149,13 @@ public class Autonomous_Blue_1 extends OpMode {
                 // スライダーを縮める
                 .addTemporalMarker(() -> {
                     state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
-                    // スライダーを伸ばし、フックに標本を引っかける
                 })
                 // 2回目
                 .lineToLinearHeading(new Pose2d(-30.0, 50.0, Math.toRadians(-90)))
+                //　インテイクモードに
+                .addTemporalMarker(() -> {
+                    state.outtakeState.mode = State.SliderMode.INTAKE;
+                })
                 // 標本をつかむ準備をする
                 .waitSeconds(0.3)
                 // 速度を制限する
@@ -171,16 +175,16 @@ public class Autonomous_Blue_1 extends OpMode {
                 // 上がるまで待つ
                 .waitSeconds(0.5)
                 // 後ろに下がる
-                .lineToLinearHeading(new Pose2d(-30.0, 55.0, Math.toRadians(-90)))
+//                .lineToLinearHeading(new Pose2d(-30.0, 55.0, Math.toRadians(-90)))
                 // 速度制限解除
                 .resetAccelConstraint()
-                // 引っかける位置に移動する
-                .lineToLinearHeading(new Pose2d(8.0, 30.0, Math.toRadians(90)))
                 // 少し上げるのを解除
                 .addTemporalMarker(() -> {
                     state.outtakeState.isIntakeUp = false;
                     state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
                 })
+                // 引っかける位置に移動する
+                .lineToLinearHeading(new Pose2d(8.0, 30.0, Math.toRadians(90)))
                 // スライダーを伸ばし、フックに下から標本を引っかける
                 .addTemporalMarker(() -> {
                     state.outtakeState.mode = State.SliderMode.HOOK;
