@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subClass;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.state.State;
 
@@ -13,6 +14,8 @@ public class Util {
         telemetry.addData("OuttakeAdditionalSliderPosition", state.outtakeState.additionalSliderPosition);
         telemetry.addData("CurrentSliderPosition", state.outtakeState.currentSliderPosition);
         telemetry.addData("OuttakeCollectorClose", state.outtakeState.isOuttakeCollectorClose);
+        telemetry.addData("CurrentHangerRightPosition", state.outtakeState.currentHangerRightPosition);
+        telemetry.addData("CurrentHangerLeftPosition", state.outtakeState.currentHangerLeftPosition);
         FtcDashboard dashboard = FtcDashboard.getInstance();
         Telemetry dashboardTelemetry = dashboard.getTelemetry();
         dashboardTelemetry.addData("CurrentSliderPosition", state.outtakeState.currentSliderPosition);

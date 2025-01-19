@@ -85,8 +85,8 @@ public class Outtake implements Component {
     @Override
     public void readSensors(State state) {
         state.outtakeState.currentSliderPosition = outtakeSliderLeft.getCurrentPosition();
-        state.outtakeState.hangerLeftPosition = hangerLeft.getCurrentPosition();
-        state.outtakeState.hangerRightPosition = hangerRight.getCurrentPosition();
+        state.outtakeState.currentHangerLeftPosition = hangerLeft.getCurrentPosition();
+        state.outtakeState.currentHangerRightPosition = hangerRight.getCurrentPosition();
     }
 
     @Override

@@ -61,8 +61,8 @@ public class State {
         public boolean isOuttakeCollectorClose;
         public double currentSliderPosition;
         public boolean isIntakeUp;
-        public int hangerLeftPosition;
-        public int hangerRightPosition;
+        public int currentHangerLeftPosition;
+        public int currentHangerRightPosition;
         public int additionalHangerPosition;
     }
 
@@ -92,9 +92,9 @@ public class State {
         this.outtakeState.additionalSliderPosition = 0;
         this.outtakeState.currentSliderPosition = 0;
         this.outtakeState.isIntakeUp = false;
-        this.outtakeState.hangerLeftPosition = 0;
-        this.outtakeState.hangerRightPosition = 0;
         this.outtakeState.additionalHangerPosition = 0;
+        this.outtakeState.currentHangerLeftPosition = 0;
+        this.outtakeState.currentHangerRightPosition = 0;
     }
 
     public void stateReset() {
@@ -106,5 +106,7 @@ public class State {
 
         // OuttakeState
         this.outtakeState.currentSliderPosition = 0;
+        this.outtakeState.currentHangerLeftPosition = 0;
+        this.outtakeState.currentHangerRightPosition = 0;
     }
 }

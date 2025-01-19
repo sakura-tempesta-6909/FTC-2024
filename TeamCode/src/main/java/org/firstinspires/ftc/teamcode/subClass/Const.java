@@ -152,20 +152,6 @@ public class Const {
         }
     }
 
-    public static class Camera {
-        public static class Name {
-
-        }
-
-        public static class Position {
-
-        }
-
-        public static class Size {
-
-        }
-    }
-
     public static class Other {
         public static final Double CONTROLLER_DEAD_ZONE = 0.1;
     }
