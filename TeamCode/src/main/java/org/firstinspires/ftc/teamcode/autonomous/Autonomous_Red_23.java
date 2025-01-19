@@ -122,15 +122,15 @@ public class Autonomous_Red_23 extends OpMode {
                 })
                 // 上がるまで待つ
                 .waitSeconds(0.5)
-                // 後ろに下がる
-                .lineToLinearHeading(new Pose2d(40.0, -50.0, Math.toRadians(90)))
-                // 速度制限解除
-                .resetAccelConstraint()
                 // 少し上げるのを解除
                 .addTemporalMarker(() -> {
                     state.outtakeState.isIntakeUp = false;
                     state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
                 })
+                // 後ろに下がる
+                .lineToLinearHeading(new Pose2d(40.0, -50.0, Math.toRadians(90)))
+                // 速度制限解除
+                .resetAccelConstraint()
                 // 引っかける位置に移動する
                 .lineToLinearHeading(new Pose2d(-3.0, -25.0, Math.toRadians(-90)))
                 // スライダーを伸ばし、フックに下から標本を引っかける
@@ -164,7 +164,6 @@ public class Autonomous_Red_23 extends OpMode {
                 .build()
         ;
         drive.followTrajectorySequenceAsync(mainTrajectory);
-        state.outtakeState.isOuttakeCollectorClose = true;
     }
 
     /*

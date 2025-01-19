@@ -217,6 +217,9 @@ public class Autonomous_Blue_33 extends OpMode {
         components.forEach(component -> {
             component.readSensors(state);
         });
+        components.forEach(component -> {
+            component.applyState(state);
+        });
         Util.SendLog(state, telemetry);
     }
 

@@ -125,15 +125,15 @@ public class Autonomous_Blue_23 extends OpMode {
                 .waitSeconds(0.5)
                 // 後ろに下がる
                 .lineToLinearHeading(new Pose2d(-45.0, 55.0, Math.toRadians(-90)))
-                // 速度制限解除
-                .resetAccelConstraint()
-                // 引っかける位置に移動する
-                .lineToLinearHeading(new Pose2d(5.0, 30.0, Math.toRadians(90)))
                 // 少し上げるのを解除
                 .addTemporalMarker(() -> {
                     state.outtakeState.isIntakeUp = false;
                     state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
                 })
+                // 速度制限解除
+                .resetAccelConstraint()
+                // 引っかける位置に移動する
+                .lineToLinearHeading(new Pose2d(5.0, 30.0, Math.toRadians(90)))
                 // スライダーを伸ばし、フックに下から標本を引っかける
                 .addTemporalMarker(() -> {
                     state.outtakeState.mode = State.SliderMode.HOOK;
@@ -165,7 +165,6 @@ public class Autonomous_Blue_23 extends OpMode {
                 .build();
 
         drive.followTrajectorySequenceAsync(mainTrajectory);
-        state.outtakeState.isOuttakeCollectorClose = true;
     }
 
     /*
@@ -178,6 +177,9 @@ public class Autonomous_Blue_23 extends OpMode {
         components.forEach(component -> {
             component.readSensors(state);
         });
+        components.forEach(component -> {
+            component.applyState(state);
+        });
         Util.SendLog(state, telemetry);
     }
 
@@ -189,6 +191,7 @@ public class Autonomous_Blue_23 extends OpMode {
     public void start() {
         runtime.reset();
         state.stateInit();
+        state.outtakeState.isOuttakeCollectorClose = true;
     }
 
     /*

@@ -81,14 +81,14 @@ public class State {
         this.driveState.xSpeed = 0.0;
         this.driveState.ySpeed = 0.0;
         this.driveState.rotation = 0.0;
-        this.outtakeState.isOuttakeCollectorClose = false;
+        this.outtakeState.isOuttakeCollectorClose = true;
 
         // IntakeState
         this.intakeState.mode = IntakeMode.STOP;
         this.intakeState.orientation = IntakeOrientation.VERTICAL;
 
         // OuttakeState
-        this.outtakeState.mode = SliderMode.DOWN;
+        this.outtakeState.mode = SliderMode.INIT;
         this.outtakeState.additionalSliderPosition = 0;
         this.outtakeState.currentSliderPosition = 0;
         this.outtakeState.isIntakeUp = false;
