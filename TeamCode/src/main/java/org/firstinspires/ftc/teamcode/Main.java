@@ -47,7 +47,6 @@ public class Main extends OpMode {
     private final ArrayList<Component> components = new ArrayList<>();
     private final State state = new State();
     private Boolean previousGamePad1B = false;
-    private Boolean previousGamePad2Y = false;
     private Boolean previousGamepad1Trigger = false;
     private Boolean isFinding = false;
 
@@ -74,6 +73,7 @@ public class Main extends OpMode {
         components.forEach(component -> {
             component.readSensors(state);
         });
+        state.currentRuntime = getRuntime();
         Util.SendLog(state, telemetry);
     }
 
@@ -97,6 +97,7 @@ public class Main extends OpMode {
         components.forEach(component -> {
             component.readSensors(state);
         });
+        state.currentRuntime = getRuntime();
 
         //モードの設定
         state.currentMode = State.Mode.DRIVE;
@@ -136,8 +137,14 @@ public class Main extends OpMode {
 
         // スライダーを上げる
         if (gamepad2.dpad_down) {
-            state.outtakeState.mode = State.SliderMode.DOWN;
-            state.outtakeState.additionalSliderPosition = 0;
+            // 現在のスライダーのモードがDOWNだったら、INITまで戻す
+            if (state.outtakeState.mode == State.SliderMode.DOWN) {
+                state.outtakeState.mode = State.SliderMode.INIT;
+                state.outtakeState.additionalSliderPosition = 0;
+            } else if (state.outtakeState.mode != State.SliderMode.INIT) {
+                state.outtakeState.mode = State.SliderMode.DOWN;
+                state.outtakeState.additionalSliderPosition = 0;
+            }
         } else if (gamepad2.dpad_up) {
             state.outtakeState.mode = State.SliderMode.TELEOP;
         } else if (gamepad2.x) {
@@ -154,12 +161,10 @@ public class Main extends OpMode {
             state.outtakeState.additionalSliderPosition += 10;
         }
 
-        state.outtakeState.isIntakeUp = gamepad2.right_bumper;
-
         //outtakeChargeのトグル
-        if (gamepad2.y && !previousGamePad2Y) {
-            state.outtakeState.isOuttakeCollectorClose = !state.outtakeState.isOuttakeCollectorClose;
-        }
+        state.outtakeState.isIntakeUp = gamepad2.right_bumper;
+        state.outtakeState.isOuttakeCollectorClose = gamepad2.y;
+
 
         state.driveState.imuReset = gamepad1.start;
 
@@ -169,7 +174,6 @@ public class Main extends OpMode {
 
         //ゲームパッドの状態の保存
         previousGamePad1B = gamepad1.b;
-        previousGamePad2Y = gamepad2.y;
         previousGamepad1Trigger = Util.applyDeadZone(gamepad1.right_trigger) > 0.0 || Util.applyDeadZone(gamepad1.left_trigger) > 0.0;
 
         //ログの送信

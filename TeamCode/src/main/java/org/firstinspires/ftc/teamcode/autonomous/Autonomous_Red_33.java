@@ -87,7 +87,7 @@ public class Autonomous_Red_33 extends OpMode {
                 .waitSeconds(0.5)
                 // スライダーを元に戻す
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.DOWN;
+                    state.outtakeState.mode = State.SliderMode.INIT;
                 })
                 // 元に戻すまで待つ
                 .waitSeconds(0.8)
@@ -148,7 +148,7 @@ public class Autonomous_Red_33 extends OpMode {
                 .waitSeconds(0.5)
                 // スライダーを縮める
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.DOWN;
+                    state.outtakeState.mode = State.SliderMode.INIT;
                 })
                 .waitSeconds(1.0)
                 // 3回目
@@ -197,7 +197,7 @@ public class Autonomous_Red_33 extends OpMode {
                 .waitSeconds(0.5)
                 // スライダーを縮める
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.DOWN;
+                    state.outtakeState.mode = State.SliderMode.INIT;
                 })
                 .waitSeconds(1.0)
                 .lineToLinearHeading(new Pose2d(37.0, -55.0, Math.toRadians(-90)))

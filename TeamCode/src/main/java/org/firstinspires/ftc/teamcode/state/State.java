@@ -9,6 +9,7 @@ public class State {
     // Robot operation mode
     // ロボットの動作モード
     public Mode currentMode;
+    public double currentRuntime;
 
     public static class DriveState {
         // Current heading of the robot in radians
@@ -42,6 +43,7 @@ public class State {
     }
 
     public enum SliderMode {
+        INIT,
         DOWN,
         TELEOP,
         HOOK,
@@ -79,7 +81,7 @@ public class State {
         this.intakeState.orientation = IntakeOrientation.VERTICAL;
 
         // OuttakeState
-        this.outtakeState.mode = SliderMode.DOWN;
+        this.outtakeState.mode = SliderMode.INIT;
         this.outtakeState.additionalSliderPosition = 0;
         this.outtakeState.currentSliderPosition = 0;
         this.outtakeState.isIntakeUp = false;
@@ -87,6 +89,7 @@ public class State {
     }
 
     public void stateReset() {
+        this.currentRuntime = 0.0;
         // DriveState
         this.driveState.botHeading = 0.0;
         this.driveState.xSpeed = 0.0;

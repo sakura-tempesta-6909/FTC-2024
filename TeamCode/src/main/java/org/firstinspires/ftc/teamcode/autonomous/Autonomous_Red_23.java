@@ -87,7 +87,7 @@ public class Autonomous_Red_23 extends OpMode {
                 .waitSeconds(0.5)
                 // スライダーを元に戻す
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.DOWN;
+                    state.outtakeState.mode = State.SliderMode.INIT;
                 })
                 // 元に戻すまで待つ
                 .waitSeconds(0.8)
@@ -147,7 +147,7 @@ public class Autonomous_Red_23 extends OpMode {
                 .waitSeconds(0.5)
                 // スライダーを縮める
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.DOWN;
+                    state.outtakeState.mode = State.SliderMode.INIT;
                 })
                 .waitSeconds(1.0)
                 // 横に移動する
