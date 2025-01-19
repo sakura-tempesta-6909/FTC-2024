@@ -49,6 +49,9 @@ public class State {
         HOOK,
         HOOK_PREPARE,
         INTAKE,
+        CLIMB,
+        CLIMB_PREPARE,
+        CLIMB_HOOK,
     }
 
     public static class OuttakeState {
@@ -57,6 +60,9 @@ public class State {
         public boolean isOuttakeCollectorClose;
         public double currentSliderPosition;
         public boolean isIntakeUp;
+        public boolean isModeClimb;
+        public int hangerLeftPosition;
+        public int hangerRightPosition;
     }
 
     // Instances of the subclasses
@@ -81,11 +87,13 @@ public class State {
         this.intakeState.orientation = IntakeOrientation.VERTICAL;
 
         // OuttakeState
-        this.outtakeState.mode = SliderMode.INIT;
+        this.outtakeState.mode = SliderMode.DOWN;
         this.outtakeState.additionalSliderPosition = 0;
         this.outtakeState.currentSliderPosition = 0;
         this.outtakeState.isIntakeUp = false;
-
+        this.outtakeState.isModeClimb = false;
+        this.outtakeState.hangerLeftPosition = 0;
+        this.outtakeState.hangerRightPosition = 0;
     }
 
     public void stateReset() {
