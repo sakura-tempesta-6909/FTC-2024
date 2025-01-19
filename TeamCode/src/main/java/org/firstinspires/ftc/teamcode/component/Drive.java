@@ -95,10 +95,17 @@ public class Drive implements Component {
 
         // Set motor power to respective motors
         // 各モーターにパワーを設定する
-        leftFront.setPower(leftFrontPower);
-        rightFront.setPower(rightFrontPower);
-        leftRear.setPower(leftRearPower);
-        rightRear.setPower(rightRearPower);
+        if (state.currentMode == State.Mode.CLIMB) {
+            leftFront.setPower(leftFrontPower / 2);
+            rightFront.setPower(rightFrontPower / 2);
+            leftRear.setPower(leftRearPower / 2);
+            rightRear.setPower(rightRearPower / 2);
+        } else {
+            leftFront.setPower(leftFrontPower);
+            rightFront.setPower(rightFrontPower);
+            leftRear.setPower(leftRearPower);
+            rightRear.setPower(rightRearPower);
+        }
 
         if (state.driveState.imuReset) imu.resetYaw();
     }
