@@ -54,6 +54,7 @@ public class Main extends OpMode {
     private Boolean isFinding = false;
     private Boolean previousModeChange = false;
     private Boolean previousDpadDown = false;
+    private Boolean previousDpadUp = false;
     private double previousTime = 0.0;
 
     /*
@@ -149,34 +150,56 @@ public class Main extends OpMode {
         }
 
 
-        if ((getRuntime() - previousTime) >= 0.5 && previousTime != 0.0) {
-            state.outtakeState.mode = State.SliderMode.DOWN;
-            previousTime = 0.0;
-        }
         if (gamepad2.y && gamepad2.y != previousGamePad2Y && previousTime == 0.0) {
             state.outtakeState.isOuttakeCollectorClose = !state.outtakeState.isOuttakeCollectorClose;
         }
 
-        // スライダーを上げる
-        if (gamepad2.dpad_down && gamepad2.dpad_down != previousDpadDown) {
-            // 現在のスライダーのモードがDOWNだったら、INITまで戻す
-            if (state.outtakeState.mode == State.SliderMode.DOWN) {
-                state.outtakeState.mode = State.SliderMode.INIT;
-                state.outtakeState.additionalSliderPosition = 0;
-                previousTime = 0.0;
-            } else if (state.outtakeState.mode == State.SliderMode.TELEOP && (state.outtakeState.isOuttakeCollectorClose || previousTime != 0.0)) {
-                if (previousTime == 0.0) previousTime = getRuntime();
-                state.outtakeState.mode = State.SliderMode.TELEOP;
-                state.outtakeState.isOuttakeCollectorClose = false;
-            } else if (state.outtakeState.mode != State.SliderMode.INIT) {
+        //　クライムモードとドライブモードの判別
+        if (state.currentMode == State.Mode.DRIVE) {
+            // コレクターが開いたこと(0.5秒)を確認したら、スライダーを下げる
+            if ((getRuntime() - previousTime) >= 0.5 && previousTime != 0.0) {
                 state.outtakeState.mode = State.SliderMode.DOWN;
-                state.outtakeState.additionalSliderPosition = 0;
                 previousTime = 0.0;
             }
-        } else if (gamepad2.dpad_up) {
-            state.outtakeState.mode = State.SliderMode.TELEOP;
-        } else if (gamepad2.start) {
-            state.outtakeState.mode = State.SliderMode.INTAKE;
+            // スライダーを上げる
+            if (gamepad2.dpad_down && gamepad2.dpad_down != previousDpadDown) {
+                // 現在のスライダーのモードがDOWNだったら、INITまで戻す
+                if (state.outtakeState.mode == State.SliderMode.DOWN) {
+                    state.outtakeState.mode = State.SliderMode.INIT;
+                    state.outtakeState.additionalSliderPosition = 0;
+                    previousTime = 0.0;
+                } else if (state.outtakeState.mode == State.SliderMode.TELEOP && (state.outtakeState.isOuttakeCollectorClose || previousTime != 0.0)) {
+                    if (previousTime == 0.0) previousTime = getRuntime();
+                    state.outtakeState.mode = State.SliderMode.TELEOP;
+                    state.outtakeState.isOuttakeCollectorClose = false;
+                } else if (state.outtakeState.mode != State.SliderMode.INIT) {
+                    state.outtakeState.mode = State.SliderMode.DOWN;
+                    state.outtakeState.additionalSliderPosition = 0;
+                    previousTime = 0.0;
+                }
+            } else if (gamepad2.dpad_up) {
+                state.outtakeState.mode = State.SliderMode.TELEOP;
+            } else if (gamepad2.start) {
+                state.outtakeState.mode = State.SliderMode.INTAKE;
+            }
+        } else if (state.currentMode == State.Mode.CLIMB) {
+            if (gamepad2.dpad_down && gamepad2.dpad_down != previousDpadDown) {
+                if (state.outtakeState.mode == State.SliderMode.CLIMB_HOOK) {
+                    state.outtakeState.mode = State.SliderMode.CLIMB_UP;
+                } else if (state.outtakeState.mode == State.SliderMode.CLIMB_UP) {
+                    state.outtakeState.mode = State.SliderMode.CLIMB;
+                } else if (state.outtakeState.mode == State.SliderMode.CLIMB) {
+                    state.outtakeState.mode = State.SliderMode.CLIMB_PREPARE;
+                }
+            } else if (gamepad2.dpad_up && gamepad2.dpad_up != previousDpadUp) {
+                if (state.outtakeState.mode == State.SliderMode.CLIMB_PREPARE) {
+                    state.outtakeState.mode = State.SliderMode.CLIMB;
+                } else if (state.outtakeState.mode == State.SliderMode.CLIMB) {
+                    state.outtakeState.mode = State.SliderMode.CLIMB_UP;
+                } else if (state.outtakeState.mode == State.SliderMode.CLIMB_UP) {
+                    state.outtakeState.mode = State.SliderMode.CLIMB_HOOK;
+                }
+            }
         }
 
         if (gamepad2.dpad_left) {
@@ -184,7 +207,6 @@ public class Main extends OpMode {
         } else if (gamepad2.dpad_right) {
             state.outtakeState.additionalSliderPosition += 10;
         }
-
 
         components.forEach(component -> {
             component.applyState(state);
@@ -195,6 +217,8 @@ public class Main extends OpMode {
         previousGamepad1Trigger = Util.applyDeadZone(gamepad1.right_trigger) > 0.0 || Util.applyDeadZone(gamepad1.left_trigger) > 0.0;
         previousDpadDown = gamepad2.dpad_down;
         previousGamePad2Y = gamepad2.y;
+        previousDpadUp = gamepad2.dpad_up;
+        previousModeChange = gamepad1.back && gamepad2.back;
 
         //ログの送信
         Util.SendLog(state, telemetry);

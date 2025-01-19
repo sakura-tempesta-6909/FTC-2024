@@ -49,9 +49,9 @@ public class State {
         HOOK,
         HOOK_PREPARE,
         INTAKE,
-        AUTO_END,
         CLIMB,
         CLIMB_PREPARE,
+        CLIMB_UP,
         CLIMB_HOOK,
     }
 
