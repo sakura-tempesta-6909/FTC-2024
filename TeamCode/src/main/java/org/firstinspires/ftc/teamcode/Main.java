@@ -175,10 +175,6 @@ public class Main extends OpMode {
             }
         } else if (gamepad2.dpad_up) {
             state.outtakeState.mode = State.SliderMode.TELEOP;
-        } else if (gamepad2.x) {
-            state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
-        } else if (gamepad2.a) {
-            state.outtakeState.mode = State.SliderMode.HOOK;
         } else if (gamepad2.start) {
             state.outtakeState.mode = State.SliderMode.INTAKE;
         }
