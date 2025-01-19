@@ -28,6 +28,8 @@
  */
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad2;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -47,8 +49,11 @@ public class Main extends OpMode {
     private final ArrayList<Component> components = new ArrayList<>();
     private final State state = new State();
     private Boolean previousGamePad1B = false;
+    private Boolean previousGamePad2Y = false;
     private Boolean previousGamepad1Trigger = false;
     private Boolean isFinding = false;
+    private Boolean previousDpadDown = false;
+    private double previousTime = 0.0;
 
     /*
      * This is executed once after the driver presses INIT.
@@ -108,6 +113,8 @@ public class Main extends OpMode {
         state.driveState.ySpeed = Util.applyDeadZone(gamepad1.left_stick_y);
         state.driveState.rotation = Util.applyDeadZone(gamepad1.right_stick_x);
 
+        //outtakeChargeのトグル
+        state.outtakeState.isIntakeUp = gamepad2.right_bumper;
         if ((Util.applyDeadZone(gamepad1.right_trigger) > 0.0 || Util.applyDeadZone(gamepad1.left_trigger) > 0.0) != previousGamepad1Trigger) {
             isFinding = !isFinding;
         }
@@ -135,15 +142,29 @@ public class Main extends OpMode {
         }
 
 
+        if ((getRuntime() - previousTime) >= 0.5 && previousTime != 0.0) {
+            state.outtakeState.mode = State.SliderMode.DOWN;
+            previousTime = 0.0;
+        }
+        if (gamepad2.y && gamepad2.y != previousGamePad2Y && previousTime == 0.0) {
+            state.outtakeState.isOuttakeCollectorClose = !state.outtakeState.isOuttakeCollectorClose;
+        }
+
         // スライダーを上げる
-        if (gamepad2.dpad_down) {
+        if (gamepad2.dpad_down && gamepad2.dpad_down != previousDpadDown) {
             // 現在のスライダーのモードがDOWNだったら、INITまで戻す
             if (state.outtakeState.mode == State.SliderMode.DOWN) {
                 state.outtakeState.mode = State.SliderMode.INIT;
                 state.outtakeState.additionalSliderPosition = 0;
+                previousTime = 0.0;
+            } else if (state.outtakeState.mode == State.SliderMode.TELEOP && (state.outtakeState.isOuttakeCollectorClose || previousTime != 0.0)) {
+                if (previousTime == 0.0) previousTime = getRuntime();
+                state.outtakeState.mode = State.SliderMode.TELEOP;
+                state.outtakeState.isOuttakeCollectorClose = false;
             } else if (state.outtakeState.mode != State.SliderMode.INIT) {
                 state.outtakeState.mode = State.SliderMode.DOWN;
                 state.outtakeState.additionalSliderPosition = 0;
+                previousTime = 0.0;
             }
         } else if (gamepad2.dpad_up) {
             state.outtakeState.mode = State.SliderMode.TELEOP;
@@ -161,12 +182,6 @@ public class Main extends OpMode {
             state.outtakeState.additionalSliderPosition += 10;
         }
 
-        //outtakeChargeのトグル
-        state.outtakeState.isIntakeUp = gamepad2.right_bumper;
-        state.outtakeState.isOuttakeCollectorClose = gamepad2.y;
-
-
-        state.driveState.imuReset = gamepad1.start;
 
         components.forEach(component -> {
             component.applyState(state);
@@ -175,9 +190,14 @@ public class Main extends OpMode {
         //ゲームパッドの状態の保存
         previousGamePad1B = gamepad1.b;
         previousGamepad1Trigger = Util.applyDeadZone(gamepad1.right_trigger) > 0.0 || Util.applyDeadZone(gamepad1.left_trigger) > 0.0;
+        previousDpadDown = gamepad2.dpad_down;
+        previousGamePad2Y = gamepad2.y;
 
         //ログの送信
         Util.SendLog(state, telemetry);
+        telemetry.addData("Runtime", getRuntime());
+        telemetry.addData("RuntimeDiff", (getRuntime() - previousTime));
+        telemetry.addData("Previous", previousTime);
     }
 
     /*
