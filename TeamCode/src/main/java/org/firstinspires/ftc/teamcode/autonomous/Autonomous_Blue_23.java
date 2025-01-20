@@ -64,7 +64,7 @@ public class Autonomous_Blue_23 extends OpMode {
 
         drive = new SampleMecanumDrive(hardwareMap);
         // スタート位置の設定
-        Pose2d startPose = new Pose2d(0, 60.0, Math.toRadians(90.0));
+        Pose2d startPose = new Pose2d(0, 59.0, Math.toRadians(90.0));
         drive.setPoseEstimate(startPose);
         mainTrajectory = drive.trajectorySequenceBuilder(startPose)
                 .addTemporalMarker(() -> {
@@ -87,30 +87,30 @@ public class Autonomous_Blue_23 extends OpMode {
                 .waitSeconds(0.5)
                 // スライダーを元に戻す
                 .addTemporalMarker(() -> {
-                    state.outtakeState.mode = State.SliderMode.HOOK_PREPARE;
+                    state.outtakeState.mode = State.SliderMode.DOWN;
                 })
                 // 元に戻すまで待つ
-                .waitSeconds(0.5)
+                .waitSeconds(1.0)
                 // 横に移動する
                 .lineToLinearHeading(new Pose2d(-35.0, 48.0, Math.toRadians(90)))
                 // 前に移動する
                 .lineToLinearHeading(new Pose2d(-35.0, 10.0, Math.toRadians(-90)))
                 // 横に行く
                 .lineToLinearHeading(new Pose2d(-50.0, 10.0, Math.toRadians(-90)))
-                // 後ろに移動する (サンプルをヒューマンエリアに)
-                .lineToLinearHeading(new Pose2d(-50.0, 60.0, Math.toRadians(-90)))
                 .addTemporalMarker(() -> {
                     state.outtakeState.mode = State.SliderMode.INTAKE;
                 })
+                // 後ろに移動する (サンプルをヒューマンエリアに)
+                .lineToLinearHeading(new Pose2d(-50.0, 45.0, Math.toRadians(-90)))
                 // 標本の前に行く
-                .lineToLinearHeading(new Pose2d(-45.0, 55.0, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-45.0, 45.0, Math.toRadians(-90)))
                 // 一回目
                 // 標本をつかむ準備をする
                 .waitSeconds(0.3)
                 // 速度を制限する
                 .setAccelConstraint(new ProfileAccelerationConstraint(20.0))
                 // 標本に近づく
-                .lineToLinearHeading(new Pose2d(-45.0, 57.0, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-45.0, 52.0, Math.toRadians(-90)))
                 // 標本をつかむ
                 .addTemporalMarker(() -> {
                     state.outtakeState.isOuttakeCollectorClose = true;
@@ -124,7 +124,7 @@ public class Autonomous_Blue_23 extends OpMode {
                 // 上がるまで待つ
                 .waitSeconds(0.5)
                 // 後ろに下がる
-                .lineToLinearHeading(new Pose2d(-45.0, 55.0, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(-45.0, 45.0, Math.toRadians(-90)))
                 // 少し上げるのを解除
                 .addTemporalMarker(() -> {
                     state.outtakeState.isIntakeUp = false;
@@ -133,7 +133,7 @@ public class Autonomous_Blue_23 extends OpMode {
                 // 速度制限解除
                 .resetAccelConstraint()
                 // 引っかける位置に移動する
-                .lineToLinearHeading(new Pose2d(5.0, 30.0, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(5.0, 25.0, Math.toRadians(90)))
                 // スライダーを伸ばし、フックに下から標本を引っかける
                 .addTemporalMarker(() -> {
                     state.outtakeState.mode = State.SliderMode.HOOK;

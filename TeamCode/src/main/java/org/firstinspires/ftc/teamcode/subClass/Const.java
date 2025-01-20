@@ -67,7 +67,7 @@ public class Const {
             public static final double collectorClose = 0.24;
             public static final double liftInit = 0;
             public static final double liftUp = 1.0;
-            public static final double liftIntake = 0.9;
+            public static final double liftIntake = 0.8;
             public static final double liftSet = 0.7;
             public static final double liftAutoHookPrepare = 0.7;
             public static final double liftAutoHook = 0.7;
@@ -79,7 +79,7 @@ public class Const {
             public static final double rotationAutoHookPrepare = 0.20;
             public static final int sliderInit = 0;
             public static final int sliderUp = 1200;
-            public static final int sliderAutoHook = 1450;
+            public static final int sliderAutoHook = 1650;
             public static final int hangerHook = 30;
             public static final int hangerInit = 70;
             public static final int sliderClimb = 1500;

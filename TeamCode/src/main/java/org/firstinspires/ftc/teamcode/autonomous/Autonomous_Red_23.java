@@ -64,7 +64,7 @@ public class Autonomous_Red_23 extends OpMode {
 
         drive = new SampleMecanumDrive(hardwareMap);
         // スタート位置の設定
-        Pose2d startPose = new Pose2d(0, -60.0, Math.toRadians(-90.0));
+        Pose2d startPose = new Pose2d(0, -59.0, Math.toRadians(-90.0));
         drive.setPoseEstimate(startPose);
         mainTrajectory = drive.trajectorySequenceBuilder(startPose)
                 .addTemporalMarker(() -> {
@@ -94,9 +94,9 @@ public class Autonomous_Red_23 extends OpMode {
                 // 横に移動する
                 .lineToLinearHeading(new Pose2d(35.0, -45.0, Math.toRadians(-90)))
                 // 前に移動する
-                .lineToLinearHeading(new Pose2d(35.0, -10.0, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(35.0, -30.0, Math.toRadians(90)))
                 // 横に行く
-                .lineToLinearHeading(new Pose2d(50.0, -10.0, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(50.0, -30.0, Math.toRadians(90)))
                 .addTemporalMarker(() -> {
                     state.outtakeState.mode = State.SliderMode.INTAKE;
                 })
@@ -160,7 +160,7 @@ public class Autonomous_Red_23 extends OpMode {
                     state.outtakeState.mode = State.SliderMode.INTAKE;
                 })
                 // 後ろに移動する (サンプルをヒューマンエリアに)
-                .lineToLinearHeading(new Pose2d(70.0, -60.0, Math.toRadians(-90)))
+                .lineToLinearHeading(new Pose2d(70.0, -65.0, Math.toRadians(-90)))
                 .build()
         ;
         drive.followTrajectorySequenceAsync(mainTrajectory);

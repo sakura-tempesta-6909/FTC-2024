@@ -180,7 +180,11 @@ public class Main extends OpMode {
             } else if (gamepad2.dpad_up) {
                 state.outtakeState.mode = State.SliderMode.TELEOP;
             } else if (gamepad2.start) {
-                state.outtakeState.mode = State.SliderMode.INTAKE;
+                if (state.outtakeState.mode == State.SliderMode.TELEOP) {
+                    state.outtakeState.mode = State.SliderMode.DOWN;
+                } else {
+                    state.outtakeState.mode = State.SliderMode.INTAKE;
+                }
             }
         } else if (state.currentMode == State.Mode.CLIMB) {
             if (gamepad2.dpad_down && gamepad2.dpad_down != previousDpadDown) {
