@@ -104,12 +104,12 @@ public class Outtake implements Component {
                 hangerRight.setPower(Const.outtake.Power.hangerMoving);
                 // スライダーの高さが上昇時の1/4になるまでは、liftを上げたままにする
                 if (outtakeSliderLeft.getCurrentPosition() > (Const.outtake.Position.sliderUp / 4)) {
-                    outtakeLiftLeft.setPosition(Const.outtake.Position.liftSet);
-                    outtakeLiftRight.setPosition(Const.outtake.Position.liftSet);
+                    outtakeLiftLeft.setPosition(Const.outtake.Position.liftSet + state.outtakeState.additionalOuttakePosition);
+                    outtakeLiftRight.setPosition(Const.outtake.Position.liftSet + state.outtakeState.additionalOuttakePosition);
                     outtakeRotation.setPosition(Const.outtake.Position.rotationSet);
                 } else {
-                    outtakeLiftLeft.setPosition(Const.outtake.Position.liftInit);
-                    outtakeLiftRight.setPosition(Const.outtake.Position.liftInit);
+                    outtakeLiftLeft.setPosition(Const.outtake.Position.liftInit + state.outtakeState.additionalOuttakePosition);
+                    outtakeLiftRight.setPosition(Const.outtake.Position.liftInit + state.outtakeState.additionalOuttakePosition);
                     outtakeRotation.setPosition(Const.outtake.Position.rotationInit);
                 }
                 break;
@@ -123,8 +123,8 @@ public class Outtake implements Component {
                 hangerRight.setTargetPosition(Const.outtake.Position.hangerInit);
                 hangerLeft.setPower(Const.outtake.Power.hangerMoving);
                 hangerRight.setPower(Const.outtake.Power.hangerMoving);
-                outtakeLiftLeft.setPosition(Const.outtake.Position.liftSet);
-                outtakeLiftRight.setPosition(Const.outtake.Position.liftSet);
+                outtakeLiftLeft.setPosition(Const.outtake.Position.liftSet + state.outtakeState.additionalOuttakePosition);
+                outtakeLiftRight.setPosition(Const.outtake.Position.liftSet + state.outtakeState.additionalOuttakePosition);
                 outtakeRotation.setPosition(Const.outtake.Position.rotationSet);
                 break;
             case TELEOP:
@@ -133,8 +133,8 @@ public class Outtake implements Component {
                 outtakeSliderRight.setTargetPosition(Const.outtake.Position.sliderUp + state.outtakeState.additionalSliderPosition);
                 outtakeSliderLeft.setPower(Const.outtake.Power.sliderMoving);
                 outtakeSliderRight.setPower(Const.outtake.Power.sliderMoving);
-                outtakeLiftLeft.setPosition(Const.outtake.Position.liftSet);
-                outtakeLiftRight.setPosition(Const.outtake.Position.liftSet);
+                outtakeLiftLeft.setPosition(Const.outtake.Position.liftSet + state.outtakeState.additionalOuttakePosition);
+                outtakeLiftRight.setPosition(Const.outtake.Position.liftSet + state.outtakeState.additionalOuttakePosition);
                 outtakeRotation.setPosition(Const.outtake.Position.rotationSet);
                 hangerLeft.setTargetPosition(Const.outtake.Position.hangerInit);
                 hangerRight.setTargetPosition(Const.outtake.Position.hangerInit);
@@ -147,8 +147,8 @@ public class Outtake implements Component {
                 outtakeSliderRight.setTargetPosition(Const.outtake.Position.sliderAutoHook + state.outtakeState.additionalSliderPosition);
                 outtakeSliderLeft.setPower(Const.outtake.Power.sliderMoving);
                 outtakeSliderRight.setPower(Const.outtake.Power.sliderMoving);
-                outtakeLiftLeft.setPosition(Const.outtake.Position.liftAutoHook);
-                outtakeLiftRight.setPosition(Const.outtake.Position.liftAutoHook);
+                outtakeLiftLeft.setPosition(Const.outtake.Position.liftAutoHook + state.outtakeState.additionalOuttakePosition);
+                outtakeLiftRight.setPosition(Const.outtake.Position.liftAutoHook + state.outtakeState.additionalOuttakePosition);
                 outtakeRotation.setPosition(Const.outtake.Position.rotationAutoHook);
                 hangerLeft.setTargetPosition(Const.outtake.Position.hangerInit);
                 hangerRight.setTargetPosition(Const.outtake.Position.hangerInit);
@@ -161,8 +161,8 @@ public class Outtake implements Component {
                 outtakeSliderRight.setTargetPosition(Const.outtake.Position.sliderInit);
                 outtakeSliderLeft.setPower(Const.outtake.Power.sliderMoving);
                 outtakeSliderRight.setPower(Const.outtake.Power.sliderMoving);
-                outtakeLiftLeft.setPosition(Const.outtake.Position.liftAutoHookPrepare);
-                outtakeLiftRight.setPosition(Const.outtake.Position.liftAutoHookPrepare);
+                outtakeLiftLeft.setPosition(Const.outtake.Position.liftAutoHookPrepare + state.outtakeState.additionalOuttakePosition);
+                outtakeLiftRight.setPosition(Const.outtake.Position.liftAutoHookPrepare + state.outtakeState.additionalOuttakePosition);
                 outtakeRotation.setPosition(Const.outtake.Position.rotationAutoHookPrepare);
                 hangerLeft.setTargetPosition(Const.outtake.Position.hangerInit);
                 hangerRight.setTargetPosition(Const.outtake.Position.hangerInit);
@@ -175,8 +175,8 @@ public class Outtake implements Component {
                 outtakeSliderRight.setTargetPosition(Const.outtake.Position.sliderInit);
                 outtakeSliderLeft.setPower(Const.outtake.Power.sliderMoving);
                 outtakeSliderRight.setPower(Const.outtake.Power.sliderMoving);
-                outtakeLiftLeft.setPosition(Const.outtake.Position.liftIntake);
-                outtakeLiftRight.setPosition(Const.outtake.Position.liftIntake);
+                outtakeLiftLeft.setPosition(Const.outtake.Position.liftIntake + state.outtakeState.additionalOuttakePosition);
+                outtakeLiftRight.setPosition(Const.outtake.Position.liftIntake + state.outtakeState.additionalOuttakePosition);
                 hangerLeft.setTargetPosition(Const.outtake.Position.hangerInit);
                 hangerRight.setTargetPosition(Const.outtake.Position.hangerInit);
                 hangerLeft.setPower(Const.outtake.Power.hangerMoving);

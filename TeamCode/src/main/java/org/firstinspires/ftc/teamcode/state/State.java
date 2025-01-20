@@ -64,6 +64,8 @@ public class State {
         public int currentHangerLeftPosition;
         public int currentHangerRightPosition;
         public int additionalHangerPosition;
+        public double additionalOuttakePosition;
+        public double additionalClimbPosition;
     }
 
     // Instances of the subclasses
@@ -95,6 +97,8 @@ public class State {
         this.outtakeState.additionalHangerPosition = 0;
         this.outtakeState.currentHangerLeftPosition = 0;
         this.outtakeState.currentHangerRightPosition = 0;
+        this.outtakeState.additionalOuttakePosition = 0;
+        this.outtakeState.additionalClimbPosition = 0;
     }
 
     public void stateReset() {
@@ -108,5 +112,6 @@ public class State {
         this.outtakeState.currentSliderPosition = 0;
         this.outtakeState.currentHangerLeftPosition = 0;
         this.outtakeState.currentHangerRightPosition = 0;
+        this.outtakeState.additionalOuttakePosition = 0;
     }
 }

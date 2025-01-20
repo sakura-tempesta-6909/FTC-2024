@@ -82,7 +82,7 @@ public class Const {
             public static final int sliderAutoHook = 1650;
             public static final int hangerHook = 30;
             public static final int hangerInit = 70;
-            public static final int sliderClimb = 1500;
+            public static final int sliderClimb = 1700;
         }
 
         public static class Power {

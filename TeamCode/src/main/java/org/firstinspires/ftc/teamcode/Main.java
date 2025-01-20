@@ -39,6 +39,7 @@ import org.firstinspires.ftc.teamcode.component.Component;
 import org.firstinspires.ftc.teamcode.component.Drive;
 import org.firstinspires.ftc.teamcode.component.Intake;
 import org.firstinspires.ftc.teamcode.state.State;
+import org.firstinspires.ftc.teamcode.subClass.Const;
 import org.firstinspires.ftc.teamcode.subClass.Util;
 
 import java.util.ArrayList;
@@ -56,6 +57,7 @@ public class Main extends OpMode {
     private Boolean previousDpadDown = false;
     private Boolean previousDpadUp = false;
     private double previousTime = 0.0;
+    private State.SliderMode previousSliderMode = State.SliderMode.INIT;
 
     /*
      * This is executed once after the driver presses INIT.
@@ -212,6 +214,15 @@ public class Main extends OpMode {
             state.outtakeState.additionalSliderPosition += 10;
         }
 
+        if (gamepad1.dpad_up) {
+            state.outtakeState.additionalOuttakePosition += 10;
+        } else if (gamepad1.dpad_down) {
+            state.outtakeState.additionalOuttakePosition -= 10;
+        }
+        if (previousSliderMode != state.outtakeState.mode) {
+            state.outtakeState.additionalOuttakePosition = 0.0;
+            state.outtakeState.additionalClimbPosition = 0.0;
+        }
         components.forEach(component -> {
             component.applyState(state);
         });
@@ -223,6 +234,7 @@ public class Main extends OpMode {
         previousGamePad2Y = gamepad2.y;
         previousDpadUp = gamepad2.dpad_up;
         previousModeChange = gamepad1.back && gamepad2.back;
+        previousSliderMode = state.outtakeState.mode;
 
         //ログの送信
         Util.SendLog(state, telemetry);
